@@ -1,23 +1,23 @@
 @extends('layouts.master')
-@section('title', 'Supplier List')
+@section('title', 'Brand List')
 
 @section('page-header')
     <header class="header bg-ui-general">
         <div class="header-info">
             <h1 class="header-title">
-                <strong>Suppliers</strong>
+                <strong>Brands</strong>
             </h1>
         </div>
 
         <div class="header-action">
             <nav class="nav">
                 <a class="nav-link active" href="{{ route('supplier.index') }}">
-                    Suppliers
+                    Brands
                 </a>
-                {{-- <a class="nav-link" href="#">Import Suppliers</a> --}}
+                {{-- <a class="nav-link" href="#">Import Brands</a> --}}
                 <a class="nav-link" href="{{ route('supplier.create') }}">
                     <i class="fa fa-plus"></i>
-                    New Supplier
+                    New Brand
                 </a>
             </nav>
         </div>
@@ -54,7 +54,7 @@
         <div class="card print_area">
             <div class="row">
                 <div class="col-12" style="display:flex; justify-content:space-between">
-                    <h4 class="card-title"><strong>Suppliers</strong></h4>
+                    <h4 class="card-title"><strong>Brands</strong></h4>
                     <a href="" class="btn btn-primary print_hidden mt-2 mr-2" onclick="window.print()" style="height: fit-content;">Print</a>
                 </div>
             </div>

@@ -1,23 +1,23 @@
 @extends('layouts.master')
-@section('title', 'Edit Supplier')
+@section('title', 'Edit Brand')
 
 @section('page-header')
     <header class="header bg-ui-general">
         <div class="header-info">
           <h1 class="header-title">
-            <strong>Edit Supplier</strong>
+            <strong>Edit Brand</strong>
           </h1>
         </div>
 
         <div class="header-action">
           <nav class="nav">
             <a class="nav-link" href="{{ route('supplier.index') }}">
-              Suppliers
+              Brands
             </a>
-            {{-- <a class="nav-link" href="#">Import Suppliers</a> --}}
+            {{-- <a class="nav-link" href="#">Import Brands</a> --}}
             <a class="nav-link" href="{{ route('supplier.create') }}">
                  <i class="fa fa-plus"></i>
-                 New Supplier
+                 New Brand
             </a>
           </nav>
         </div>
@@ -27,7 +27,7 @@
 @section('content')
   <div class="col-12">
     <div class="card">
-      <h4 class="card-title">Edit Supplier</h4>
+      <h4 class="card-title">Edit Brand</h4>
 
     <form action="{{ route('supplier.update', $supplier->id) }}" method="POST">
     @csrf
@@ -36,7 +36,7 @@
         <div class="form-row">
              <div class="col-md-6">
                <div class="form-group">
-                    <label for="">Supplier Name<span class="field_required"></span></label>
+                    <label for="">Brand Name<span class="field_required"></span></label>
                     <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid': '' }}" name="name" value="{{ $supplier->name }}">
                     @if($errors->has('name'))
                          <span class="invalid-feedback">{{ $errors->first('name') }}</span>
@@ -57,7 +57,6 @@
                     @endif
                </div>
              </div>
-
              <div class="col-md-6">
                <div class="form-group">
                     <label for="phone">Phone<span class="field_required"></span></label>

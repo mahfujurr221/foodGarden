@@ -542,50 +542,50 @@
             @endcanany
 
             {{-- supplier --}}
-            @canany(['list-supplier', 'create-supplier', 'supplier_ledger', 'supplier_due_report'])
+            @canany(['list-brand', 'create-brand', 'supplier_ledger', 'supplier_due_report'])
             <li
                 class="menu-item {{ (Request::routeIs('supplier.*') || Request::routeIs('report.supplier_ledger') || Request::routeIs('report.supplier_due')) ? 'active open' : '' }}">
                 <a class="menu-link" href="#">
                     {{-- <span class="icon fa fa-wheelchair-alt"></span> --}}
                     <img src="{{ asset('dashboard/sidebar_icons/supplier_product.svg') }}" alt=""
                         class="sidebar_icon icon">
-                    <span class="title">Suppliers</span>
+                    <span class="title">Brands</span>
                     <span class="arrow"></span>
                 </a>
 
                 <ul class="menu-submenu">
-                    @can('create-supplier')
+                    @can('create-brand')
                     <li class="menu-item {{ Request::routeIs('supplier.create') ? 'active' : '' }}">
                         <a class="menu-link" href="{{ route('supplier.create') }}">
                             <span class="dot"></span>
-                            <span class="title">Add Supplier</span>
+                            <span class="title">Add Brand</span>
                         </a>
                     </li>
                     @endcan
 
-                    @can('list-supplier')
+                    @can('list-brand')
                     <li class="menu-item {{ Request::routeIs('supplier.index') ? 'active' : '' }}">
                         <a class="menu-link" href="{{ route('supplier.index') }}">
                             <span class="dot"></span>
-                            <span class="title">Manage Suppliers</span>
+                            <span class="title">Manage Brands</span>
                         </a>
                     </li>
                     @endcan
 
-                    @can('supplier_ledger')
+                    @can('brand_ledger')
                     <li class="menu-item {{ Request::routeIs('report.supplier_ledger') ? 'active' : '' }}">
                         <a class="menu-link" href="{{ route('report.supplier_ledger') }}">
                             <span class="dot"></span>
-                            <span class="title">Supplier Ledger</span>
+                            <span class="title">Brand Ledger</span>
                         </a>
                     </li>
                     @endcan
 
-                    @can('supplier_due_report')
+                    @can('brand_due_report')
                     <li class="menu-item {{ Request::routeIs('report.supplier_due') ? 'active' : '' }}">
                         <a class="menu-link" href="{{ route('report.supplier_due') }}">
                             <span class="dot"></span>
-                            <span class="title">Supplier Due Report</span>
+                            <span class="title">Brand Due Report</span>
                         </a>
                     </li>
                     @endcan
@@ -689,7 +689,7 @@
             @endcanany
 
             {{-- brands --}}
-            @canany(['list-brand', 'create-brand'])
+            {{-- @canany(['list-brand', 'create-brand'])
             <li class="menu-item {{ Request::routeIs('brand.*') ? 'active open' : '' }}">
                 <a class="menu-link" href="#">
                     <img src="{{ asset('dashboard/sidebar_icons/brand.svg') }}" alt="" class="sidebar_icon icon">
@@ -718,7 +718,7 @@
 
                 </ul>
             </li>
-            @endcanany
+            @endcanany --}}
 
             {{-- sms --}}
             @can('promotional_sms')

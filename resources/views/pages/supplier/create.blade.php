@@ -1,23 +1,23 @@
 @extends('layouts.master')
-@section('title', 'Create Supplier')
+@section('title', 'Create Brand')
 
 @section('page-header')
     <header class="header bg-ui-general">
         <div class="header-info">
           <h1 class="header-title">
-            <strong>New Supplier</strong>
+            <strong>New Brand</strong>
           </h1>
         </div>
 
         <div class="header-action">
           <nav class="nav">
             <a class="nav-link" href="{{ route('supplier.index') }}">
-              Suppliers
+              Brands
             </a>
-            {{-- <a class="nav-link" href="#">Import Suppliers</a> --}}
+            {{-- <a class="nav-link" href="#">Import Brands</a> --}}
             <a class="nav-link active" href="{{ route('supplier.create') }}">
                  <i class="fa fa-plus"></i>
-                 New Supplier
+                 New Brand
             </a>
           </nav>
         </div>
@@ -27,29 +27,29 @@
 @section('content')
   <div class="col-12">
     <div class="card">
-      <h4 class="card-title">New Supplier</h4>
+      <h4 class="card-title">New Brand</h4>
 
     <form action="{{ route('supplier.store') }}" method="POST">
     @csrf
       <div class="card-body">
         <div class="form-row">
                <div class="form-group col-md-6">
-                    <label for="">Supplier Name<span class="field_required"></span></label>
-                    <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid': '' }}" name="name" value="{{ old('name') }}" placeholder="Enter Supplier Name...">
+                    <label for="">Brand Name<span class="field_required"></span></label>
+                    <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid': '' }}" name="name" value="{{ old('name') }}" placeholder="Enter Brand Name...">
                     @if($errors->has('name'))
                          <span class="invalid-feedback">{{ $errors->first('name') }}</span>
                     @endif
                </div>
                <div class="form-group col-md-6">
                     <label for="email">Email</label>
-                    <input type="text" class="form-control {{ $errors->has('email') ? 'is-invalid': '' }}" name="email" value="{{ old('email') }}" placeholder="Enter Supplier Email...">
+                    <input type="text" class="form-control {{ $errors->has('email') ? 'is-invalid': '' }}" name="email" value="{{ old('email') }}" placeholder="Enter Brand Email...">
                     @if($errors->has('email'))
                          <span class="invalid-feedback">{{ $errors->first('email') }}</span>
                     @endif
                </div>
                <div class="form-group col-md-6">
                     <label for="phone">Address</label>
-                    <textarea name="address" class="form-control {{ $errors->has('address') ? 'is-invalid': '' }}" placeholder="Write Supplier Address"></textarea>
+                    <textarea name="address" class="form-control {{ $errors->has('address') ? 'is-invalid': '' }}" placeholder="Write Brand Address"></textarea>
                     @if($errors->has('address'))
                          <span class="invalid-feedback">{{ $errors->first('address') }}</span>
                     @endif
@@ -57,7 +57,7 @@
 
                 <div class="form-group col-md-6">
                     <label for="phone">Phone<span class="field_required"></span></label>
-                    <input type="text" class="form-control {{ $errors->has('phone') ? 'is-invalid': '' }}" name="phone" value="{{ old('phone') }}" placeholder="Enter Supplier Phone...">
+                    <input type="text" class="form-control {{ $errors->has('phone') ? 'is-invalid': '' }}" name="phone" value="{{ old('phone') }}" placeholder="Enter Brand Phone...">
                     @if($errors->has('phone'))
                          <span class="invalid-feedback">{{ $errors->first('phone') }}</span>
                     @endif
