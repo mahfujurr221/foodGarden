@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use App\DeliveryMethod;
 use App\Pos;
 use App\PosItem;
@@ -10,20 +9,15 @@ use App\Product;
 use App\Customer;
 
 // use App\DeliveryMethod;
-use App\Payment;
-use App\Stock;
 use App\ActualPayment;
-use App\Brand;
 use App\DueCollection;
 use App\Estimate;
 use App\EstimateItem;
 use App\OrderDamageItem;
 use App\OrderReturnItem;
 use App\PosSetting;
-use App\PurchaseItem;
 use App\Services\StockService;
 use App\Services\TransactionService;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -136,12 +130,8 @@ class PosController extends Controller
             'sub_total' => 'required',
         ]);
         try {
-            
             DB::beginTransaction();
-            
             $saleBy = auth()->id();
-            
-            //if request has estimated id 
             if ($request->estimate) {
                 $estimate = Estimate::find($request->estimate);
                 $estimate->convert_status = 1;
@@ -169,7 +159,7 @@ class PosController extends Controller
             $pos->save();
             StockService::add_new_pos_items_and_recalculate_cost($request, $pos);
             $pos->update_calculated_data();
-            // Make Payment
+
             if ($request->pay_amount != null) {
                 $actual_payment = ActualPayment::create([
                     'customer_id' => $request->customer,
@@ -187,7 +177,6 @@ class PosController extends Controller
                     'method' => $request->payment_method,
                 ]);
             }
-
             if(($request->receivable_amount-$request->pay_amount)!=0){
                 $dueCollection = DueCollection::create([
                     'customer_id' => $request->customer,
@@ -202,15 +191,14 @@ class PosController extends Controller
                     'brand_id' => $request->brand_id,
                 ]);
             }
+
             //if request has estimated id 
             if ($request->estimate) {
                 $estimate = Estimate::find($request->estimate);
                 $estimate->convert_status = 1;
                 $estimate->save();
             }
-            
             DB::commit();
-            
             return redirect()->route('pos_receipt', $pos->id);
         } catch (\Exception $e) {
             DB::rollback();

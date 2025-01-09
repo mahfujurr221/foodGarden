@@ -155,262 +155,112 @@
     }
 
     function to_sub_unit(main_val, sub_val, related_by) {
-        return (main_val * related_by) + sub_val;
+    return (main_val * related_by) + sub_val;
+}
+
+function convert_to_main_and_sub(quantity, related_by) {
+    var main_qty = Math.floor(quantity / related_by);
+    var sub_qty = quantity % related_by;
+    return {
+        main_qty: main_qty,
+        sub_qty: sub_qty,
+    };
+}
+
+function calculate_sub_total(main_qty, sub_qty, unit_price, related_by, has_sub_unit) {
+    let sub_unit_price = 0;
+    if (has_sub_unit === "true" && related_by > 0) {
+        sub_unit_price = parseFloat(unit_price / related_by); // Price per sub-unit
     }
 
-    function convert_to_main_and_sub(quantity, related_by) {
-        var main_qty = 0;
-        var main_qty_as_sub = 0;
-        var sub_qty = 0;
+    let main_price = main_qty * unit_price; // Price for main units
+    let sub_price = sub_qty * sub_unit_price; // Price for sub-units
+    return parseFloat(main_price + sub_price).toFixed(2);
+}
 
-        if (quantity != 0) {
-            main_qty = parseInt(quantity / related_by);
-            main_qty_as_sub = main_qty * related_by;
-            sub_qty = quantity - main_qty_as_sub;
-        }
-        return {
-            'main_qty': main_qty,
-            'sub_qty': sub_qty
-        };
+function old_quantity(row, has_sub_unit, related_by) {
+    let old_main = parseInt(empty_field_check(row.find(".main_qty").attr("data-old"))) || 0;
+    let returned = parseInt(empty_field_check(row.find(".returned").attr("data-returned"))) || 0;
+    let damage = parseInt(empty_field_check(row.find(".damage").attr("data-damage"))) || 0;
+
+    old_main -= (returned + damage); // Adjust for returned and damaged quantities
+    let old_sub = 0;
+
+    if (has_sub_unit === "true") {
+        old_sub = parseInt(empty_field_check(row.find(".sub_qty").attr("data-old"))) || 0;
     }
 
-    function calculate_sub_total(main_qty, sub_qty, unit_price, related_by, has_sub_unit) {
-        var sub_unit_price = 0;
-        if (has_sub_unit == "true" && related_by != 0) {
-            sub_unit_price = parseFloat(unit_price / related_by);
-        }
-        var main_price = main_qty * unit_price;
-        var sub_price = sub_qty * sub_unit_price;
-        return parseFloat(main_price + sub_price).toFixed(2);
+    return to_sub_unit(old_main, old_sub, related_by); // Total in sub-units
+}
+
+function updateRowTotals(row) {
+    const unit_price = parseFloat(row.find(".rate").val()) || 0; // Price per unit
+    const related_by = parseInt(row.find(".returned").data("related")) || 1; // Conversion factor
+    const has_sub_unit = row.find(".has_sub_unit").val() === "true";
+
+    const main_qty = parseInt(empty_field_check(row.find(".main_qty").val())) || 0;
+    const sub_qty = parseInt(empty_field_check(row.find(".sub_qty").val())) || 0;
+    const returned_main = parseInt(empty_field_check(row.find(".returned").val())) || 0;
+    const returned_sub = parseInt(empty_field_check(row.find(".returned_sub_unit").val())) || 0;
+    const damage_sub = parseInt(empty_field_check(row.find(".damage").val())) || 0; // Damage in sub-units
+
+    // Convert quantities to sub-units
+    const ordered_qty = to_sub_unit(main_qty, sub_qty, related_by);
+    const returned_qty = to_sub_unit(returned_main, returned_sub, related_by);
+    const final_qty = ordered_qty - returned_qty - damage_sub;
+
+    if (final_qty < 0) {
+        toastr.warning("Returned and damaged quantities cannot exceed the ordered quantity.");
+        row.find(".returned").val(0);
+        row.find(".returned_sub_unit").val(0);
+        row.find(".damage").val(0);
+        return updateRowTotals(row); // Recalculate with corrected values
     }
 
-    function old_quantity(obj, has_sub_unit, related_by) {
-        let old_main = parseInt(empty_field_check(obj.parents('tr').find('.main_qty').attr('data-old')));
-        let returned = parseInt(empty_field_check(obj.parents('tr').find('.returned').attr('data-returned')));
-        let damage = parseInt(empty_field_check(obj.parents('tr').find('.damage').attr('data-damage')));
-        old_main = old_main - returned - damage;
-        let old_sub = 0;
-        if (has_sub_unit == "true") {
-            old_sub = parseInt(empty_field_check(obj.parents('tr').find('.sub_qty').attr('data-old')))
-        }
-        return to_sub_unit(old_main, old_sub, related_by);
-    }
+    // Monetary calculations
+    const sub_total = calculate_sub_total(final_qty, 0, unit_price, related_by, has_sub_unit);
+    const returned_value = calculate_sub_total(returned_main, returned_sub, unit_price, related_by, has_sub_unit);
+    const damaged_value = calculate_sub_total(0, damage_sub, unit_price, related_by, has_sub_unit);
 
-    function handle_change(obj) {
-        var old_main = parseInt(empty_field_check(obj.parents('tr').find('.main_qty').val()));
-        var old_sub = parseInt(empty_field_check(obj.parents('tr').find('.sub_qty').val()));
-        var main_val = parseInt(empty_field_check(obj.parents('tr').find('.returned').val()));
-        var sub_val = parseInt(empty_field_check(obj.parents('tr').find('.returned_sub_unit').val()));
-        var damage_value = parseInt(empty_field_check(obj.parents('tr').find('#damageValue').val()));
-        var damage_qty = parseInt(empty_field_check(obj.parents('tr').find('.damage').val()));
-        let related_by = parseInt(empty_field_check(obj.parents('tr').find('.returned').attr('data-related')));
-        var has_sub_unit = obj.parents('tr').find('.has_sub_unit').val();
-        var oldSubTotal = parseFloat(obj.parents('tr').find('.subtotal_holder').val());
-        var return_value = 0;
-        let converted_sub = to_sub_unit(main_val, sub_val, related_by, has_sub_unit);
-        let stock = obj.parents('tr').find('.main_qty').attr('data-value');
-        
-        if (main_val > (old_main-damage_qty)) {
-            toastr.warning('Returned Quantity is greater than sold quantity.');
-            obj.parents('tr').find('.returned').val(0);
-            main_val = 0;
-            return false;
-        }
+    // Update row values
+    row.find(".sub_total").val(sub_total); // Subtotal for remaining quantity
+    row.find(".returnValue").val(returned_value); // Value of returned items
+    row.find("#damageValue").val(damaged_value); // Value of damaged items
+}
 
-        // if(sub_val>(related_by+old_sub)){
-        //     toastr.warning('Returned Quantity is greater than sold quantity.');
-        //     obj.parents('tr').find('.returned_sub_unit').val(0);
-        //     sub_val = 0;
-        // }
-        // if((main_val*related_by+sub_val)>(related_by*old_main+old_sub)){
-        //     toastr.warning('Returned Quantity is greater than sold quantity.');
-        //     obj.parents('tr').find('.returned_sub_unit').val(0);
-        //     obj.parents('tr').find('.returned').val(0);
-        //     main_val = 0;
-        //     sub_val = 0;
-        // }
+function updateTotals() {
+    let total_amount = 0;
+    let total_qty = 0;
 
-        if (stock < converted_sub) {
-            var converted;
-            if (has_sub_unit == "true") {
-                converted = convert_to_main_and_sub(stock, has_sub_unit, related_by);
-                obj.parents('tr').find('.main_qty').val(converted.main_qty);
-                obj.parents('tr').find('.sub_qty').val(converted.sub_qty);
-            } else {
-                converted = convert_to_main_and_sub(stock, has_sub_unit, related_by);
-                obj.parents('tr').find('.main_qty').val(converted.main_qty);
-            }
-            let price = obj.parents('tr').find('.rate').val();
-            price = parseFloat(price);
-            let subTotal = calculate_sub_total(converted.main_qty, converted.sub_qty, price, related_by, has_sub_unit);
-            let updatedSubTotal = oldSubTotal - subTotal;
-            obj.parents('tr').find('.sub_total').val(updatedSubTotal);
-            totalCalculate();
-            toastr.warning('Not Enough Stock.');
-        } else {
-            let price = obj.parents('tr').find('.rate').val();
-            price = parseFloat(price);
-            let subTotal = calculate_sub_total(main_val, sub_val, price, related_by, has_sub_unit);
-            let return_value = ((price * main_val) + ((price / related_by) * sub_val));
-            let updatedSubTotal = oldSubTotal - subTotal - damage_value;
-            obj.parents('tr').find('.sub_total').val(updatedSubTotal);
-            obj.parents('tr').find('.returnValue').val(return_value);
-            totalCalculate();
-        }
-    }
+    $("#tbody tr").each(function () {
+        const row = $(this);
+        updateRowTotals(row);
 
-    // main_qty
-    $(document).on('keyup', '.main_qty', function(e) {
-        var main_val = parseInt(empty_field_check($(this).val()));
-        var sub_val = parseInt(empty_field_check($(this).parents('tr').find('.sub_qty').val()));
-        var returned_qty = parseInt(empty_field_check($(this).parents('tr').find('.returned').val()));
-        var returned_value = parseInt(empty_field_check($(this).parents('tr').find('.returnValue').val()));
-        var damage_qty = parseInt(empty_field_check($(this).parents('tr').find('.damage').val()));
-        var damage_value = parseInt(empty_field_check($(this).parents('tr').find('#damageValue').val()));
-        let related_by = parseInt(empty_field_check($(this).attr('data-related')));
-        var has_sub_unit = $(this).parents('tr').find('.has_sub_unit').val();
-        let converted_sub = to_sub_unit(main_val, sub_val, related_by ,has_sub_unit);
+        const sub_total = parseFloat(row.find(".sub_total").val()) || 0;
+        const qty = parseInt(row.find(".main_qty").val()) || 0;
 
-        let stock = $(this).attr('data-value');
-        if (main_val < returned_qty+damage_qty) {
-            toastr.warning('Returned Quantity is greater than ordered quantity.');
-            $(this).parents('tr').find('.returned').val(0);
-            main_val = 0;
-        }
-
-        if (stock < converted_sub) {
-            var converted;
-            if (has_sub_unit == "true") {
-                converted = convert_to_main_and_sub(stock, related_by);
-                $(this).val(converted.main_qty);
-                $(this).parents('tr').find('.sub_qty').val(converted.sub_qty);
-            } else {
-                converted = convert_to_main_and_sub(stock, related_by);
-                $(this).val(converted.main_qty);
-            }
-
-            let price = $(this).parents('tr').find('.rate').val();
-            price = parseFloat(price);
-            let subTotal = calculate_sub_total(converted.main_qty, converted.sub_qty, price, related_by, has_sub_unit);
-            subTotal = parseFloat(subTotal)-returned_value-damage_value;
-            $(this).parents('tr').find('.sub_total').val(subTotal);
-            $(this).parents('tr').find('.sub_total_holder').val(subTotal);
-            totalCalculate();
-
-        } else {
-            let price = $(this).parents('tr').find('.rate').val();
-            price = parseFloat(price);
-            let subTotal = calculate_sub_total(main_val, sub_val, price, related_by, has_sub_unit);
-            subTotal = parseFloat(subTotal) - returned_value - damage_value;
-            $(this).parents('tr').find('.sub_total').val(subTotal);
-            $(this).parents('tr').find('.subtotal_holder').val(subTotal);
-
-            totalCalculate();
-        }
+        total_amount += sub_total;
+        total_qty += qty;
     });
 
-    //subunit 
-    $(document).on('keyup', '.sub_qty', function(e) {
-        var main_val = parseInt(empty_field_check($(this).parents('tr').find('.main_qty').val()));
-        var sub_val = parseInt(empty_field_check($(this).val()));
-        var returned_qty = parseInt(empty_field_check($(this).parents('tr').find('.returned').val()));
-        var returned_value = parseInt(empty_field_check($(this).parents('tr').find('.returnValue').val()));
-        var damage_qty = parseInt(empty_field_check($(this).parents('tr').find('.damage').val()));
-        var damage_value = parseInt(empty_field_check($(this).parents('tr').find('#damageValue').val()));
-        let related_by = parseInt(empty_field_check($(this).parents('tr').find('.returned').attr('data-related')));
-        var has_sub_unit = $(this).parents('tr').find('.has_sub_unit').val();
-        let converted_sub = to_sub_unit(main_val, sub_val, related_by, has_sub_unit);
+    // Update total values in the UI
+    $("#totalAmount").text(total_amount.toFixed(2));
+    $("#total_input_Amount").val(total_amount.toFixed(2));
+    $("#items").text(total_qty);
+}
 
-        let stock = $(this).parents('tr').find('.main_qty').attr('data-value');
-        if (main_val < returned_qty+damage_qty) {
-            toastr.warning('Returned Quantity is greater than ordered quantity.');
-            $(this).parents('tr').find('.returned').val(0);
-            main_val = 0;
-        }
-
-        if (stock < converted_sub) {
-            var converted;
-            if (has_sub_unit == "true") {
-                converted = convert_to_main_and_sub(stock, related_by);
-                $(this).parents('tr').find('.main_qty').val(converted.main_qty);
-                $(this).val(converted.sub_qty);
-            } else {
-                converted = convert_to_main_and_sub(stock, related_by);
-                $(this).val(converted.main_qty);
-            }
-
-            let price = $(this).parents('tr').find('.rate').val();
-            price = parseFloat(price);
-            let subTotal = calculate_sub_total(converted.main_qty, converted.sub_qty, price, related_by, has_sub_unit);
-            subTotal = parseFloat(subTotal)-returned_value-damage_value;
-            $(this).parents('tr').find('.sub_total').val(subTotal);
-            $(this).parents('tr').find('.subtotal_holder').val(subTotal);
-            totalCalculate();
-
-        } else {
-            let price = $(this).parents('tr').find('.rate').val();
-            price = parseFloat(price);
-            let subTotal = calculate_sub_total(main_val, sub_val, price, related_by, has_sub_unit);
-            subTotal = parseFloat(subTotal) - returned_value - damage_value;
-            $(this).parents('tr').find('.sub_total').val(subTotal);
-            $(this).parents('tr').find('.subtotal_holder').val(subTotal);
-
-            totalCalculate();
-        }
-    });
-    
-
-    //on keyup return 
-    $(document).on('keyup', '.returned', function(e) {
-        handle_change($(this));
+$(document).ready(function () {
+    // Trigger updates on input changes
+    $(document).on("keyup change", ".main_qty, .sub_qty, .returned, .returned_sub_unit, .damage", function () {
+        const row = $(this).closest("tr");
+        updateRowTotals(row);
+        updateTotals();
     });
 
-    //on keyup return 
-    $(document).on('keyup', '.returned', function(e) {
-        handle_change($(this));
-    });
+    // Initial calculation on page load
+    updateTotals();
+});
 
-    //sub_qty change
-    $(document).on('keyup', '.returned_sub_unit', function(e) {
-        handle_change($(this));
-    });
-
-    //on keyup #damageValue
-    $(document).on('keyup', '.damage', function(e) {
-        var damage_qty = $(this).val();
-        var damage_rate = $(this).parents('tr').find('.damage_rate').val();
-        var return_value = $(this).parents('tr').find('#returnValue').val();
-        var input_subtotal = $(this).parents('tr').find('.subtotal_holder').val();
-        damage_value = parseFloat(damage_qty * damage_rate);
-        return_value = parseFloat(return_value);
-        var sub_total = parseFloat(input_subtotal - return_value - damage_value);
-        $(this).parents('tr').find('.sub_total').val(sub_total.toFixed(3));
-        $(this).parents('tr').find('#damageValue').val(damage_value);
-        totalCalculate();
-    });
-
-    function totalCalculate() {
-        let subTotalList = document.querySelectorAll('.sub_total');
-        let qtyList = document.querySelectorAll('.qty');
-        // alert(subTotalList);
-        let total = 0;
-        let totalQty = 0;
-        $.each(subTotalList, (index, value) => {
-            total += parseFloat(value.value);
-        });
-        $("#totalAmount").text(total);
-        $("#total_input_Amount").val(total);
-        $("#receivable").text(total);
-        $("#after_discount").text(total);
-        $("#receivable_input").val(total);
-
-        $.each(qtyList, (index, value) => {
-            totalQty += parseInt(value.value);
-        });
-        
-        $(".totalQty").text(totalQty);
-        $("#items").text(totalQty);
-    }
 
     showList();
     totalCalculate();

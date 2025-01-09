@@ -12,7 +12,6 @@
 @section('content')
 <div class="col-md-12">
     <div class="row">
-        
         {{-- @if(auth()->user()->hasRole('admin'))
         <div class="form-row mb-3">
             <div class="col-md-12">
@@ -22,7 +21,6 @@
             </div>
         </div>
         @endif --}}
-
         <div class="col-md-12">
             <div class="card card-body">
                 <form action="{{ route('estimate.update', $estimate) }}" id="sale-manage-form" method="POST">
@@ -232,7 +230,6 @@
                                                 class="form-control rate bg_none" name="old_rate[{{ $pos_item->id }}]"
                                                 readonly />
                                         </td>
-
                                         {{-- <td style="width:100px">
                                             <input type="text" value="{{ $pos_item->item_discount }}"
                                                 class="form-control item_discount"
@@ -240,7 +237,6 @@
                                             <input type="hidden" value="{{ $pos_item->discount }}"
                                                 class="form-control discount" name="old_dis[{{$pos_item->id }}]" />
                                         </td> --}}
-
                                         <td style="width:150px;background-color:#ece9e9">
                                             <input style="font-weight:700;" type="text"
                                                 name="old_sub_total[{{ $pos_item->id }}]"
@@ -256,6 +252,7 @@
                                                 class="form-control subtotal_holder"
                                                 value="{{ $pos_item->ordered_sub_total }}" hidden />
                                         </td>
+
                                         @if(auth()->user()->hasRole('admin'))
                                         <td>
                                             <a href="#" class="item-index"
@@ -393,6 +390,7 @@
         // product search
         $(document).ready(function() {
             getPosItemId({{ $estimate->id }});
+            // console.log(db_pid_array);
         });
         $(function() {
             $("#product_search").autocomplete({
@@ -451,6 +449,7 @@
         function productSelected(id) {
             console.log(id);
         }
+
         function partial_handle(id) {
             var url = "{{ route('estimate.partial_destroy', 'partial_id') }}".replace('partial_id', id);
             $("#partial-delete-form").attr('action', url);

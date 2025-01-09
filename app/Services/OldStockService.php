@@ -8,7 +8,7 @@ use App\PosItem;
 use App\Product;
 use App\PurchaseItem;
 
-class StockService
+class OldStockService
 {
     // public static function return_purchase_ids_and_qty_for_the_sell($product_id, $qty)
     // {
@@ -65,97 +65,173 @@ class StockService
 
     public static function return_purchase_ids_and_qty_for_the_sell($product_id, $qty)
     {
-        $product = Product::findOrFail($product_id);
-
-        // Validate stock availability
-        if ($qty <= 0 || $product->stock() < $qty) {
-            throw new \Exception("Insufficient stock for product: {$product->name}");
+        // dd("HE");
+        // if not enough stock return error
+        $product = Product::find($product_id);
+        // dd($product->stock());
+        if ($product->stock() < $qty || $qty == 0) {
+            return $data = [];
         }
 
-        // Fetch purchase items with locking
         $purchase_items = PurchaseItem::where('product_id', $product_id)
-            ->where('remaining', '>', 0)
-            ->lockForUpdate()
+            // ->where('remaining', '>', '0')
             ->get();
+        // $purchase_items=$purchase_items->where()
+        $purchase_items = $purchase_items->filter(function ($item) {
+            // dd($item);
+            if ($item->remaining() > 0) {
+                return  $item;
+            }
+        })->values();
+
 
         $data = [];
         $total_price = 0;
-        $remaining_qty = $qty;
+        $placeholder_qty = $qty;
 
         foreach ($purchase_items as $item) {
-            if ($remaining_qty <= 0) {
+            if ($placeholder_qty <= 0) {
                 break;
             }
+            // dd("remaining: ".$item->remaining());
+            if ($item->remaining() >= $placeholder_qty) {
+                $data['purchase_items'][] = [
+                    'purchase_item_id' => $item->id,
+                    'purchase_id' => $item->purchase_id,
+                    'qty' => $placeholder_qty,
+                    'price' => $item->rate
+                ];
 
-            $allocated_qty = min($item->remaining(), $remaining_qty);
+                $product = $item->product;
 
-            $data['purchase_items'][] = [
-                'purchase_item_id' => $item->id,
-                'purchase_id' => $item->purchase_id,
-                'qty' => $allocated_qty,
-                'price' => $item->rate,
-            ];
-            $total_price += $product->quantity_worth($allocated_qty, $item->rate);
-            // Deduct stock
-            $item->remaining -= $allocated_qty;
-            $item->save();
-            $remaining_qty -= $allocated_qty;
+                $total_price += $product->quantity_worth($placeholder_qty, $item->rate);
+
+                $placeholder_qty = 0;
+            } else {
+                $data['purchase_items'][] = [
+                    'purchase_item_id' => $item->id,
+                    'purchase_id' => $item->purchase_id,
+                    'qty' => $item->remaining(),
+                    'price' => $item->rate
+                ];
+
+                $total_price += $product->quantity_worth($item->remaining(), $item->rate);
+
+                $placeholder_qty -= $item->remaining();
+            }
         }
 
-        if ($remaining_qty > 0) {
-            throw new \Exception("Not enough stock available.");
-        }
+        $average_price = $total_price / $qty;
 
-        $data['average_price'] = round($total_price / $qty, 2);
+        $data['average_price'] = $average_price;
         $data['total_price'] = $total_price;
+
         return $data;
     }
 
     public static function add_new_pos_items_and_recalculate_cost($request, $pos)
     {
-        foreach ($request->product_id as $key => $product_id) {
-            $main_qty = $request->main_qty[$product_id] ?? 0;
-            $sub_qty = $request->sub_qty[$product_id] ?? 0;
-            $returned_qty = $request->old_returned[$product_id] ?? 0;
-            $returned_sub = $request->old_returned_sub_unit[$product_id] ?? 0;
-            $damaged = $request->damage[$product_id] ?? 0;
+        // dd($request->all());
+        if ($request->product_id) {
+            foreach ($request->product_id as $key => $value) {
+                $main_qty = 0;
+                $sub_qty = 0;
+                $returned_qty = 0;
+                $returned_sub = 0;
+                $damaged = 0;
+                if ($request->main_qty && array_key_exists($value, $request->main_qty)) {
+                    $main_qty = $request->main_qty[$value];
+                }
+                if ($request->sub_qty && array_key_exists($value, $request->sub_qty)) {
+                    $sub_qty = $request->sub_qty[$request->product_id[$key]];
+                }
+                if ($request->old_returned && array_key_exists($value, $request->old_returned)) {
+                    $returned_qty = $request->old_returned[$value];
+                }
+                if ($request->old_returned_sub_unit && array_key_exists($value, $request->old_returned_sub_unit)) {
+                    $returned_sub = $request->old_returned_sub_unit[$value];
+                }
+                // dd($returned_sub);
+                if ($request->damage && array_key_exists($value, $request->damage)) {
+                    $damaged = $request->damage[$value];
+                }
 
-            $product = Product::findOrFail($product_id);
-            $ordered_qty = $product->to_sub_quantity($main_qty, $sub_qty);
-            $actual_returned = $product->to_sub_quantity($returned_qty, $returned_sub);
-            $qty = $ordered_qty - $actual_returned;
+                $sub_total = $request->sub_total[$key];
+                $ordered_sub_total = $request->subtotal_holder[$key];
 
-            if ($qty <= 0) {
-                continue;
+                if ($ordered_sub_total == 0) {
+                    $ordered_sub_total = $sub_total;
+                }
+
+                $product = Product::find($request->product_id[$key]);
+                $ordered_qty = $product->to_sub_quantity($main_qty, $sub_qty);
+                $actual_returned = $product->to_sub_quantity($returned_qty, $returned_sub);
+                $qty = ($ordered_qty - $actual_returned);
+                $actual_qty = $qty;
+                if ($ordered_qty != $actual_returned) {
+                    $purchase_distribution = StockService::return_purchase_ids_and_qty_for_the_sell($request->product_id[$key], $qty);
+
+                    if (isset($purchase_distribution['purchase_items'])) {
+                        $pos_item = PosItem::create([
+                            'pos_id' => $pos->id,
+                            'product_name' => $request->name[$key],
+                            'product_id' => $request->product_id[$key],
+                            'rate' => $request->rate[$key],
+                            // 'unit_cost'    => $purchase_distribution['average_price'],
+                            'total_purchase_cost' => $purchase_distribution['total_price'],
+                            'main_unit_qty' => $main_qty,
+                            'sub_unit_qty' => $sub_qty,
+                            // 'ordered_qty' => $request->ordered_qty[$key],
+                            'ordered_qty' => $ordered_qty,
+                            'qty' => $qty,
+                            'returned' => $returned_qty,
+                            'returned_sub_unit' => $returned_sub,
+                            'returned_qty' => $actual_returned,
+                            'returned_value' => $request->returned_value[$key],
+                            'damage' => $request->damage[$key],
+                            'damaged_value' => $request->damaged_value[$key],
+                            'discount_qty' => $request->discount_qty[$key],
+                            'discount_return' => $request->discount_return[$key],
+                            'sub_total' => $request->sub_total[$key],
+                             // 'ordered_sub_total' => $ordered_sub_total,
+                            'ordered_sub_total' => $request->subtotal_holder[$key]??0,
+                        ]);
+                        foreach ($purchase_distribution['purchase_items'] as $pd_key => $pd_value) {
+                            $pos_item->stock()->create([
+                                'purchase_id' => $pd_value['purchase_id'],
+                                'purchase_item_id' => $pd_value['purchase_item_id'],
+                                'product_id' => $request->product_id[$key],
+                                'qty' => $pd_value['qty']
+                            ]);
+                        }
+                        if ($request->damage[$key] > 0) {
+                            $order_damage = new OrderDamageItem();
+                            $order_damage->estimate_id = $request->estimate;
+                            $order_damage->product_id = $request->product_id[$key];
+                            $order_damage->qty = $request->damage[$key];
+                            $order_damage->rate = $request->rate[$key];
+                            // $order_damage->total = ($product->cost * $request->damage[$key]);
+                            $order_damage->total = $request->damaged_value[$key];
+                            $order_damage->save();
+                        }
+                        if ($returned_qty > 0) {
+                            $order_return = new OrderReturnItem();
+                            $order_return->estimate_id = $request->estimate;
+                            $order_return->product_id = $request->product_id[$key];
+                            $order_return->qty = $request->old_returned[$key];
+                            $order_return->sub_qty = $request->old_returned_sub_unit[$key]??0;
+                            $order_return->rate = $request->rate[$key];
+                            $order_return->total = $request->returned_value[$key];
+                            $order_return->save();
+                        }
+                    } else {
+                        throw new \Exception('Low Stock');
+                    }
+                }
             }
-
-            $purchase_distribution = StockService::return_purchase_ids_and_qty_for_the_sell($product_id, $qty);
-
-            if (empty($purchase_distribution['purchase_items'])) {
-                throw new \Exception("Stock allocation failed for product: {$product->name}");
-            }
-            $pos_item = PosItem::create([
-                'pos_id' => $pos->id,
-                'product_name' => $request->name[$key],
-                'product_id' => $product_id,
-                'rate' => $request->rate[$key],
-                'total_purchase_cost' => $purchase_distribution['total_price'],
-                'main_unit_qty' => $main_qty,
-                'sub_unit_qty' => $sub_qty,
-                'ordered_qty' => $ordered_qty,
-                'qty' => $qty,
-                'returned' => $returned_qty,
-                'returned_sub_unit' => $returned_sub,
-                'returned_qty' => $actual_returned,
-                'returned_value' => $request->returned_value[$key] ?? 0,
-                'damage' => $damaged,
-                'damaged_value' => $request->damaged_value[$key] ?? 0,
-                'sub_total' => $request->sub_total[$key],
-                'ordered_sub_total' => $ordered_sub_total = $request->subtotal_holder[$key] ?? 0,
-            ]);
         }
+        // return $problems;
     }
-
     // When Sell Edited - Update
     public static function update_pos_items_and_recalculate_cost($request, $pos)
     {
