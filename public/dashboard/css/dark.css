@@ -1,0 +1,182 @@
+/**********************************
+GLOBAL STYLES
+**********************************/
+
+.header,
+.card,
+.list-group-item,
+.shopping-cart.card,
+.modal-content,
+footer,
+.dropdown-item.active,
+.dropdown-item:active,
+.bootstrap-select.btn-group .no-results {
+    background: #202124 !important;
+}
+
+.preloader {
+    background-color: #202124 !important;
+}
+
+.header {
+    border-bottom: 1px solid #bebebe;
+}
+
+.header h1,
+.header a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+.product,
+.shopping-cart p,
+footer p,
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__rendered,
+strong,
+span {
+    color: #ffffff !important;
+}
+i.fa.fa-barcode {
+    color: #000;
+}
+#products .list-group-item {
+    border-bottom: 0;
+}
+
+.site-footer {
+    border-top: 1px solid #bebebe;
+}
+
+.dropdown-menu a,
+.dropdown-grid a {
+    color: #ffffff;
+}
+
+footer a {
+    color: #20a8dd !important;
+}
+
+.datepicker table tr td.today {
+    color: #616a78 !important;
+}
+
+.datepicker table tr td.day:hover,
+.datepicker table tr td.focused {
+    color: #616a78 !important;
+}
+
+.main-container,
+.main-content {
+    background: #303030;
+}
+
+input,
+.form-control,
+.btn-light,
+.dropdown-menu,
+.plusminus input[type="number"],
+.select2-container--default .select2-selection--single,
+.select2-dropdown,
+.note-editor.note-frame .note-editing-area .note-editable,
+.select2-container--classic .select2-selection--single,
+.bg-light {
+    background: #444444 !important;
+    color: #ffffff !important;
+    border-width: 0px !important;
+}
+
+.dropdown-item:focus,
+.dropdown-item:hover {
+    color: #16181b !important;
+}
+.dropdown-item.active,
+.dropdown-item:active {
+    color: #616a78 !important;
+}
+
+.bootstrap-select.btn-group .dropdown-item.selected span,
+.dropdown-item:focus,
+.dropdown-item:hover span {
+    color: #616a78 !important;
+}
+
+.table-bordered td,
+.table-bordered th {
+    border: 1px solid #616161;
+}
+.modal-content {
+    background: #202124 !important;
+    color: #ffffff !important;
+}
+.modal-header h4 {
+    color: #ffffff;
+}
+.modal-header {
+    border-bottom-color: #616161;
+}
+/**********************************
+POS STYLES
+**********************************/
+
+/*Invoice*/
+.table-plist th {
+    background: #303030 !important;
+}
+
+.bill-no,
+.date,
+.name,
+.mobile-no,
+.address,
+th,
+td,
+address,
+h4 {
+    color: #ffffff !important;
+}
+
+/**********************************
+RETURN POS STYLES
+**********************************/
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #303030;
+}
+
+/**********************************
+STOCK STYLES
+**********************************/
+
+.print_hidden .card-purple,
+.print_hidden .card-danger {
+    background-color: #303030 !important;
+}
+
+/**********************************
+REPORTS STYLES
+**********************************/
+
+.bg-secondary,
+.table-hover tbody tr:hover {
+    background-color: #202124 !important;
+}
+
+button.dt-button span {
+    color: #929daf !important;
+}
+
+.dataTables_wrapper label,
+.dataTables_info {
+    color: #ffffff !important;
+}
+/**********************************
+SETTINGS STYLES
+**********************************/
+.form-type-material label {
+    color: #ffffff !important;
+}

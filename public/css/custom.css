@@ -1,0 +1,171 @@
+.search_btn {
+    background-color: #a60ed4;
+    color: #fff;
+    border-radius: 20px;
+    transition: 0.5s;
+}
+
+.search_btn:hover {
+    background-color: white;
+    color: #a60ed4;
+    border-radius: 20px;
+    border: 1px solid #a60ed4;
+    transition: 0.5s;
+}
+
+.btn-danger {
+    color: #fff;
+    border-radius: 20px;
+    transition: 0.5s;
+}
+
+.btn-danger:hover {
+    background: white;
+    color: red;
+    border-radius: 20px;
+    border: 1px solid red;
+    transition: 0.5s;
+}
+
+.code {
+    border-radius: 20px;
+    border: 1px solid #03a313;
+    background: rgb(247, 245, 245);
+    display: block;
+}
+
+.brand_btn {
+    background-color: #03a313;
+    color: #fff;
+    border-radius: 10px;
+    transition: 0.5s;
+    padding: 5px;
+}
+
+.brand_btn:hover {
+    background-color: white;
+    color: #03a313;
+    border-radius: 10px;
+    border: 1px solid #03a313;
+    transition: 0.5s;
+}
+
+.product {
+    background: #03a313;
+    border: 1px solid #03a313;
+    border-radius: 20px;
+    color: white;
+    margin: 5px;
+    transition: 0.3s;
+}
+
+@media (max-width: 575px) {
+    .product {
+        margin: 2px;
+    }
+    .product span {
+        margin: 0px;
+        padding: 0px;
+        line-height: -15px;
+    }
+}
+
+.product:hover {
+    background: white;
+    border: 1px solid #03a313;
+    border-radius: 20px;
+    color: #03a313;
+    transition: 0.3s;
+}
+
+.customer_input {
+    border-radius: 20px !important;
+    background: rgb(218, 216, 216);
+    display: block;
+}
+
+.add_btn {
+    background-color: #03a313;
+    color: #fff;
+    border-radius: 20px;
+    transition: 0.5s;
+    display: block;
+}
+
+.payment_btn {
+    background-color: #11dc7a;
+    color: #fff;
+    border-radius: 20px;
+    transition: 0.5s;
+    display: block;
+}
+
+.payment_btn:hover {
+    background-color: white;
+    color: #11dc7a;
+    border-radius: 20px;
+    border: 1px solid #11dc7a;
+    transition: 0.5s;
+}
+
+.damage_btn {
+    background-color: #ff0000;
+    color: #fff;
+    border-radius: 20px;
+    transition: 0.5s;
+    display: block;
+}
+
+.damage_btn:hover {
+    background-color: white;
+    color: #ff0000;
+    border-radius: 20px;
+    border: 1px solid #ff0000;
+    transition: 0.5s;
+}
+
+.order_btn {
+    background-color: #2026e8;
+    color: #fff;
+    border-radius: 20px;
+    transition: 0.5s;
+    display: block;
+}
+
+.order_btn:hover {
+    background-color: white;
+    color: #2026e8;
+    border-radius: 20px;
+    border: 1px solid #2026e8;
+    transition: 0.5s;
+}
+
+.date {
+    border-radius: 20px;
+    background: rgb(218, 216, 216);
+    color: #fff;
+}
+
+.border_none {
+    border: none;
+}
+
+.background_gray {
+    background: rgb(240, 239, 239) !important;
+}
+
+.background_gray td {
+    border-right: 2px solid #fff;
+    padding: 0px 5px;
+}
+
+.remove-btn {
+    color: #fff;
+}
+
+.decrease-qty,
+.increase-qty {
+    height: 100% !important;
+    background: #a9aaaa;
+    color: #fff;
+}

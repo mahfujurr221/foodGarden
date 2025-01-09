@@ -1,0 +1,222 @@
+[06-Dec-2023 13:58:56 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 7.4.33. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[07-Dec-2023 15:38:41 Asia/Dhaka] PHP Fatal error:  Uncaught ErrorException: file_put_contents(/home/randomb1/foodgardendeler.com/storage/framework/views/59c6147bd7ffdbc39f4d95bac29a4de3db6f86d8.php): Failed to open stream: Disk quota exceeded in /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:190
+Stack trace:
+#0 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(270): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/home/randomb1/...', 190)
+#1 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(2, 'file_put_conten...', '/home/randomb1/...', 190)
+#2 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(190): file_put_contents('/home/randomb1/...', '<?php $__env->s...', 0)
+#3 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(185): Illuminate\Filesystem\Filesystem->put('/home/randomb1/...', '<?php $__env->s...')
+#4 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(62): Illuminate\View\Compilers\BladeCompiler->compile('/home/randomb1/...')
+#5 /home/randomb1/foodgardendeler.com/vendor/livewire/livewire/src/ComponentConcerns/RendersLivewireComponents.php(35): Illuminate\View\Engines\CompilerEngine->get('/home/randomb1/...', Array)
+#6 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/View.php(195): Livewire\LivewireViewCompilerEngine->get('/home/randomb1/...', Array)
+#7 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/View.php(178): Illuminate\View\View->getContents()
+#8 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/View.php(147): Illuminate\View\View->renderContents()
+#9 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Http/Response.php(69): Illuminate\View\View->render()
+#10 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Http/Response.php(35): Illuminate\Http\Response->setContent(Object(Illuminate\View\View))
+#11 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Routing/ResponseFactory.php(57): Illuminate\Http\Response->__construct(Object(Illuminate\View\View), 500, Array)
+#12 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Routing/ResponseFactory.php(87): Illuminate\Routing\ResponseFactory->make(Object(Illuminate\View\View), 500, Array)
+#13 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(626): Illuminate\Routing\ResponseFactory->view('errors::500', Array, 500, Array)
+#14 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(554): Illuminate\Foundation\Exceptions\Handler->renderHttpException(Object(Symfony\Component\HttpKernel\Exception\HttpException))
+#15 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(460): Illuminate\Foundation\Exceptions\Handler->prepareResponse(Object(Illuminate\Http\Request), Object(Symfony\Component\HttpKernel\Exception\HttpException))
+#16 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(377): Illuminate\Foundation\Exceptions\Handler->renderExceptionResponse(Object(Illuminate\Http\Request), Object(ErrorException))
+#17 /home/randomb1/foodgardendeler.com/app/Exceptions/Handler.php(56): Illuminate\Foundation\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(ErrorException))
+#18 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(233): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(ErrorException))
+#19 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(210): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(ErrorException))
+#20 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(270): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(ErrorException))
+#21 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(Object(ErrorException))
+#22 {main}
+  thrown in /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php on line 190
+[07-Dec-2023 15:38:46 Asia/Dhaka] PHP Fatal error:  Uncaught ErrorException: file_put_contents(/home/randomb1/foodgardendeler.com/storage/framework/views/59c6147bd7ffdbc39f4d95bac29a4de3db6f86d8.php): Failed to open stream: Disk quota exceeded in /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:190
+Stack trace:
+#0 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(270): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/home/randomb1/...', 190)
+#1 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(2, 'file_put_conten...', '/home/randomb1/...', 190)
+#2 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(190): file_put_contents('/home/randomb1/...', '<?php $__env->s...', 0)
+#3 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(185): Illuminate\Filesystem\Filesystem->put('/home/randomb1/...', '<?php $__env->s...')
+#4 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(62): Illuminate\View\Compilers\BladeCompiler->compile('/home/randomb1/...')
+#5 /home/randomb1/foodgardendeler.com/vendor/livewire/livewire/src/ComponentConcerns/RendersLivewireComponents.php(35): Illuminate\View\Engines\CompilerEngine->get('/home/randomb1/...', Array)
+#6 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/View.php(195): Livewire\LivewireViewCompilerEngine->get('/home/randomb1/...', Array)
+#7 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/View.php(178): Illuminate\View\View->getContents()
+#8 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/View.php(147): Illuminate\View\View->renderContents()
+#9 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Http/Response.php(69): Illuminate\View\View->render()
+#10 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Http/Response.php(35): Illuminate\Http\Response->setContent(Object(Illuminate\View\View))
+#11 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Routing/ResponseFactory.php(57): Illuminate\Http\Response->__construct(Object(Illuminate\View\View), 500, Array)
+#12 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Routing/ResponseFactory.php(87): Illuminate\Routing\ResponseFactory->make(Object(Illuminate\View\View), 500, Array)
+#13 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(626): Illuminate\Routing\ResponseFactory->view('errors::500', Array, 500, Array)
+#14 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(554): Illuminate\Foundation\Exceptions\Handler->renderHttpException(Object(Symfony\Component\HttpKernel\Exception\HttpException))
+#15 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(460): Illuminate\Foundation\Exceptions\Handler->prepareResponse(Object(Illuminate\Http\Request), Object(Symfony\Component\HttpKernel\Exception\HttpException))
+#16 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(377): Illuminate\Foundation\Exceptions\Handler->renderExceptionResponse(Object(Illuminate\Http\Request), Object(ErrorException))
+#17 /home/randomb1/foodgardendeler.com/app/Exceptions/Handler.php(56): Illuminate\Foundation\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(ErrorException))
+#18 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(233): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(ErrorException))
+#19 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(210): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(ErrorException))
+#20 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(270): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(ErrorException))
+#21 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(Object(ErrorException))
+#22 {main}
+  thrown in /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php on line 190
+[07-Dec-2023 15:38:51 Asia/Dhaka] PHP Fatal error:  Uncaught ErrorException: file_put_contents(/home/randomb1/foodgardendeler.com/storage/framework/views/59c6147bd7ffdbc39f4d95bac29a4de3db6f86d8.php): Failed to open stream: Disk quota exceeded in /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:190
+Stack trace:
+#0 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(270): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/home/randomb1/...', 190)
+#1 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(2, 'file_put_conten...', '/home/randomb1/...', 190)
+#2 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(190): file_put_contents('/home/randomb1/...', '<?php $__env->s...', 0)
+#3 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(185): Illuminate\Filesystem\Filesystem->put('/home/randomb1/...', '<?php $__env->s...')
+#4 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(62): Illuminate\View\Compilers\BladeCompiler->compile('/home/randomb1/...')
+#5 /home/randomb1/foodgardendeler.com/vendor/livewire/livewire/src/ComponentConcerns/RendersLivewireComponents.php(35): Illuminate\View\Engines\CompilerEngine->get('/home/randomb1/...', Array)
+#6 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/View.php(195): Livewire\LivewireViewCompilerEngine->get('/home/randomb1/...', Array)
+#7 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/View.php(178): Illuminate\View\View->getContents()
+#8 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/View.php(147): Illuminate\View\View->renderContents()
+#9 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Http/Response.php(69): Illuminate\View\View->render()
+#10 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Http/Response.php(35): Illuminate\Http\Response->setContent(Object(Illuminate\View\View))
+#11 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Routing/ResponseFactory.php(57): Illuminate\Http\Response->__construct(Object(Illuminate\View\View), 500, Array)
+#12 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Routing/ResponseFactory.php(87): Illuminate\Routing\ResponseFactory->make(Object(Illuminate\View\View), 500, Array)
+#13 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(626): Illuminate\Routing\ResponseFactory->view('errors::500', Array, 500, Array)
+#14 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(554): Illuminate\Foundation\Exceptions\Handler->renderHttpException(Object(Symfony\Component\HttpKernel\Exception\HttpException))
+#15 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(460): Illuminate\Foundation\Exceptions\Handler->prepareResponse(Object(Illuminate\Http\Request), Object(Symfony\Component\HttpKernel\Exception\HttpException))
+#16 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(377): Illuminate\Foundation\Exceptions\Handler->renderExceptionResponse(Object(Illuminate\Http\Request), Object(ErrorException))
+#17 /home/randomb1/foodgardendeler.com/app/Exceptions/Handler.php(56): Illuminate\Foundation\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(ErrorException))
+#18 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(233): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(ErrorException))
+#19 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(210): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(ErrorException))
+#20 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(270): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(ErrorException))
+#21 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(Object(ErrorException))
+#22 {main}
+  thrown in /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php on line 190
+[07-Dec-2023 15:38:52 Asia/Dhaka] PHP Fatal error:  Uncaught ErrorException: file_put_contents(/home/randomb1/foodgardendeler.com/storage/framework/views/59c6147bd7ffdbc39f4d95bac29a4de3db6f86d8.php): Failed to open stream: Disk quota exceeded in /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:190
+Stack trace:
+#0 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(270): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/home/randomb1/...', 190)
+#1 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(2, 'file_put_conten...', '/home/randomb1/...', 190)
+#2 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(190): file_put_contents('/home/randomb1/...', '<?php $__env->s...', 0)
+#3 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(185): Illuminate\Filesystem\Filesystem->put('/home/randomb1/...', '<?php $__env->s...')
+#4 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(62): Illuminate\View\Compilers\BladeCompiler->compile('/home/randomb1/...')
+#5 /home/randomb1/foodgardendeler.com/vendor/livewire/livewire/src/ComponentConcerns/RendersLivewireComponents.php(35): Illuminate\View\Engines\CompilerEngine->get('/home/randomb1/...', Array)
+#6 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/View.php(195): Livewire\LivewireViewCompilerEngine->get('/home/randomb1/...', Array)
+#7 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/View.php(178): Illuminate\View\View->getContents()
+#8 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/View.php(147): Illuminate\View\View->renderContents()
+#9 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Http/Response.php(69): Illuminate\View\View->render()
+#10 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Http/Response.php(35): Illuminate\Http\Response->setContent(Object(Illuminate\View\View))
+#11 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Routing/ResponseFactory.php(57): Illuminate\Http\Response->__construct(Object(Illuminate\View\View), 500, Array)
+#12 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Routing/ResponseFactory.php(87): Illuminate\Routing\ResponseFactory->make(Object(Illuminate\View\View), 500, Array)
+#13 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(626): Illuminate\Routing\ResponseFactory->view('errors::500', Array, 500, Array)
+#14 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(554): Illuminate\Foundation\Exceptions\Handler->renderHttpException(Object(Symfony\Component\HttpKernel\Exception\HttpException))
+#15 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(460): Illuminate\Foundation\Exceptions\Handler->prepareResponse(Object(Illuminate\Http\Request), Object(Symfony\Component\HttpKernel\Exception\HttpException))
+#16 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(377): Illuminate\Foundation\Exceptions\Handler->renderExceptionResponse(Object(Illuminate\Http\Request), Object(ErrorException))
+#17 /home/randomb1/foodgardendeler.com/app/Exceptions/Handler.php(56): Illuminate\Foundation\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(ErrorException))
+#18 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(233): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(ErrorException))
+#19 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(210): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(ErrorException))
+#20 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(270): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(ErrorException))
+#21 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(Object(ErrorException))
+#22 {main}
+  thrown in /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php on line 190
+[07-Dec-2023 15:43:39 Asia/Dhaka] PHP Fatal error:  Uncaught ErrorException: file_put_contents(/home/randomb1/foodgardendeler.com/storage/framework/views/59c6147bd7ffdbc39f4d95bac29a4de3db6f86d8.php): Failed to open stream: Disk quota exceeded in /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:190
+Stack trace:
+#0 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(270): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/home/randomb1/...', 190)
+#1 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(2, 'file_put_conten...', '/home/randomb1/...', 190)
+#2 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(190): file_put_contents('/home/randomb1/...', '<?php $__env->s...', 0)
+#3 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(185): Illuminate\Filesystem\Filesystem->put('/home/randomb1/...', '<?php $__env->s...')
+#4 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(62): Illuminate\View\Compilers\BladeCompiler->compile('/home/randomb1/...')
+#5 /home/randomb1/foodgardendeler.com/vendor/livewire/livewire/src/ComponentConcerns/RendersLivewireComponents.php(35): Illuminate\View\Engines\CompilerEngine->get('/home/randomb1/...', Array)
+#6 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/View.php(195): Livewire\LivewireViewCompilerEngine->get('/home/randomb1/...', Array)
+#7 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/View.php(178): Illuminate\View\View->getContents()
+#8 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/View.php(147): Illuminate\View\View->renderContents()
+#9 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Http/Response.php(69): Illuminate\View\View->render()
+#10 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Http/Response.php(35): Illuminate\Http\Response->setContent(Object(Illuminate\View\View))
+#11 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Routing/ResponseFactory.php(57): Illuminate\Http\Response->__construct(Object(Illuminate\View\View), 500, Array)
+#12 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Routing/ResponseFactory.php(87): Illuminate\Routing\ResponseFactory->make(Object(Illuminate\View\View), 500, Array)
+#13 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(626): Illuminate\Routing\ResponseFactory->view('errors::500', Array, 500, Array)
+#14 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(554): Illuminate\Foundation\Exceptions\Handler->renderHttpException(Object(Symfony\Component\HttpKernel\Exception\HttpException))
+#15 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(460): Illuminate\Foundation\Exceptions\Handler->prepareResponse(Object(Illuminate\Http\Request), Object(Symfony\Component\HttpKernel\Exception\HttpException))
+#16 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(377): Illuminate\Foundation\Exceptions\Handler->renderExceptionResponse(Object(Illuminate\Http\Request), Object(ErrorException))
+#17 /home/randomb1/foodgardendeler.com/app/Exceptions/Handler.php(56): Illuminate\Foundation\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(ErrorException))
+#18 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(233): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(ErrorException))
+#19 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(210): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(ErrorException))
+#20 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(270): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(ErrorException))
+#21 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(Object(ErrorException))
+#22 {main}
+  thrown in /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php on line 190
+[07-Dec-2023 15:43:40 Asia/Dhaka] PHP Fatal error:  Uncaught ErrorException: file_put_contents(/home/randomb1/foodgardendeler.com/storage/framework/views/59c6147bd7ffdbc39f4d95bac29a4de3db6f86d8.php): Failed to open stream: Disk quota exceeded in /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:190
+Stack trace:
+#0 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(270): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/home/randomb1/...', 190)
+#1 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(2, 'file_put_conten...', '/home/randomb1/...', 190)
+#2 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(190): file_put_contents('/home/randomb1/...', '<?php $__env->s...', 0)
+#3 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(185): Illuminate\Filesystem\Filesystem->put('/home/randomb1/...', '<?php $__env->s...')
+#4 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(62): Illuminate\View\Compilers\BladeCompiler->compile('/home/randomb1/...')
+#5 /home/randomb1/foodgardendeler.com/vendor/livewire/livewire/src/ComponentConcerns/RendersLivewireComponents.php(35): Illuminate\View\Engines\CompilerEngine->get('/home/randomb1/...', Array)
+#6 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/View.php(195): Livewire\LivewireViewCompilerEngine->get('/home/randomb1/...', Array)
+#7 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/View.php(178): Illuminate\View\View->getContents()
+#8 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/View.php(147): Illuminate\View\View->renderContents()
+#9 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Http/Response.php(69): Illuminate\View\View->render()
+#10 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Http/Response.php(35): Illuminate\Http\Response->setContent(Object(Illuminate\View\View))
+#11 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Routing/ResponseFactory.php(57): Illuminate\Http\Response->__construct(Object(Illuminate\View\View), 500, Array)
+#12 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Routing/ResponseFactory.php(87): Illuminate\Routing\ResponseFactory->make(Object(Illuminate\View\View), 500, Array)
+#13 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(626): Illuminate\Routing\ResponseFactory->view('errors::500', Array, 500, Array)
+#14 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(554): Illuminate\Foundation\Exceptions\Handler->renderHttpException(Object(Symfony\Component\HttpKernel\Exception\HttpException))
+#15 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(460): Illuminate\Foundation\Exceptions\Handler->prepareResponse(Object(Illuminate\Http\Request), Object(Symfony\Component\HttpKernel\Exception\HttpException))
+#16 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(377): Illuminate\Foundation\Exceptions\Handler->renderExceptionResponse(Object(Illuminate\Http\Request), Object(ErrorException))
+#17 /home/randomb1/foodgardendeler.com/app/Exceptions/Handler.php(56): Illuminate\Foundation\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(ErrorException))
+#18 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(233): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(ErrorException))
+#19 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(210): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(ErrorException))
+#20 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(270): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(ErrorException))
+#21 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(Object(ErrorException))
+#22 {main}
+  thrown in /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php on line 190
+[07-Dec-2023 15:43:42 Asia/Dhaka] PHP Fatal error:  Uncaught ErrorException: file_put_contents(/home/randomb1/foodgardendeler.com/storage/framework/views/59c6147bd7ffdbc39f4d95bac29a4de3db6f86d8.php): Failed to open stream: Disk quota exceeded in /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:190
+Stack trace:
+#0 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(270): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/home/randomb1/...', 190)
+#1 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(2, 'file_put_conten...', '/home/randomb1/...', 190)
+#2 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(190): file_put_contents('/home/randomb1/...', '<?php $__env->s...', 0)
+#3 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(185): Illuminate\Filesystem\Filesystem->put('/home/randomb1/...', '<?php $__env->s...')
+#4 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(62): Illuminate\View\Compilers\BladeCompiler->compile('/home/randomb1/...')
+#5 /home/randomb1/foodgardendeler.com/vendor/livewire/livewire/src/ComponentConcerns/RendersLivewireComponents.php(35): Illuminate\View\Engines\CompilerEngine->get('/home/randomb1/...', Array)
+#6 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/View.php(195): Livewire\LivewireViewCompilerEngine->get('/home/randomb1/...', Array)
+#7 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/View.php(178): Illuminate\View\View->getContents()
+#8 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/View/View.php(147): Illuminate\View\View->renderContents()
+#9 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Http/Response.php(69): Illuminate\View\View->render()
+#10 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Http/Response.php(35): Illuminate\Http\Response->setContent(Object(Illuminate\View\View))
+#11 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Routing/ResponseFactory.php(57): Illuminate\Http\Response->__construct(Object(Illuminate\View\View), 500, Array)
+#12 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Routing/ResponseFactory.php(87): Illuminate\Routing\ResponseFactory->make(Object(Illuminate\View\View), 500, Array)
+#13 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(626): Illuminate\Routing\ResponseFactory->view('errors::500', Array, 500, Array)
+#14 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(554): Illuminate\Foundation\Exceptions\Handler->renderHttpException(Object(Symfony\Component\HttpKernel\Exception\HttpException))
+#15 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(460): Illuminate\Foundation\Exceptions\Handler->prepareResponse(Object(Illuminate\Http\Request), Object(Symfony\Component\HttpKernel\Exception\HttpException))
+#16 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(377): Illuminate\Foundation\Exceptions\Handler->renderExceptionResponse(Object(Illuminate\Http\Request), Object(ErrorException))
+#17 /home/randomb1/foodgardendeler.com/app/Exceptions/Handler.php(56): Illuminate\Foundation\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(ErrorException))
+#18 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(233): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(ErrorException))
+#19 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(210): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(ErrorException))
+#20 /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(270): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(ErrorException))
+#21 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(Object(ErrorException))
+#22 {main}
+  thrown in /home/randomb1/foodgardendeler.com/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php on line 190
+[02-Jan-2024 22:58:16 Asia/Dhaka] PHP Fatal error:  Cannot redeclare App\Services\SummaryService::brandProfit() in /home/randomb1/foodgardendeler.com/app/Services/SummaryService.php on line 422
+[22-Jan-2024 12:41:33 Asia/Dhaka] PHP Fatal error:  Cannot redeclare App\Services\SummaryService::sold() in /home/randomb1/foodgardendeler.com/app/Services/SummaryService.php on line 248
+[22-Jan-2024 12:42:23 Asia/Dhaka] PHP Fatal error:  Cannot redeclare App\Services\SummaryService::sold() in /home/randomb1/foodgardendeler.com/app/Services/SummaryService.php on line 248
+[23-Apr-2024 12:22:51 Asia/Dhaka] PHP Fatal error:  Cannot declare class App\Customer, because the name is already in use in /home/randomb1/foodgardendeler.com/app/Http/Controllers/ReportController.php on line 14
+[23-Apr-2024 12:25:13 Asia/Dhaka] PHP Fatal error:  Cannot declare class App\Customer, because the name is already in use in /home/randomb1/foodgardendeler.com/app/Http/Controllers/ReportController.php on line 14
+[23-Apr-2024 12:27:25 Asia/Dhaka] PHP Fatal error:  Cannot declare class App\Customer, because the name is already in use in /home/randomb1/foodgardendeler.com/app/Http/Controllers/ReportController.php on line 14
+[11-Jun-2024 19:04:34 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[11-Jun-2024 19:04:42 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[11-Jun-2024 20:22:02 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[11-Jun-2024 21:55:01 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[11-Jun-2024 23:00:33 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 00:44:34 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 01:43:37 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 01:43:37 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 01:43:42 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 01:43:42 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 02:14:48 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 02:28:13 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 02:28:18 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 02:35:31 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 03:51:51 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 03:59:58 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 04:00:04 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 04:06:28 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 04:09:56 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 04:10:10 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 04:20:08 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 04:20:14 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 05:09:45 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 05:49:09 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 05:51:03 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 05:51:08 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 05:51:49 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 05:51:56 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 05:52:35 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 05:55:42 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 05:55:59 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 05:56:59 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24
+[12-Jun-2024 05:57:03 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/randomb1/foodgardendeler.com/vendor/composer/platform_check.php on line 24

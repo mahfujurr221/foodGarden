@@ -1,0 +1,206 @@
+/* Custom css for this web applications */
+
+
+/* Sidebar Customization */
+
+.sidebar-profile {
+    text-align: center;
+    padding: 8px 10px 8px;
+}
+
+.header-info {
+    margin: 5px 0;
+}
+
+.menu-link {
+    height: 45px;
+}
+
+
+/* card and table */
+
+.card-body-soft {
+    padding: 0px;
+}
+
+.table-soft {
+    margin-bottom: 0px;
+}
+
+
+/* Toaster */
+
+.toast-top-right {
+    top: 80px;
+}
+
+.header-title strong,
+strong {
+    font-weight: 700;
+}
+
+
+/* page  */
+
+.header-info {
+    margin: 11px 0px 0px 0px;
+}
+
+.main-content {
+    padding-top: 0px;
+}
+
+.mouse-point {
+    cursor: pointer;
+}
+
+
+/* Toaster */
+
+#toast-container>div {
+    width: 100%;
+}
+
+.toast-title {
+    width: 110px;
+    padding-top: 10px;
+    font-size: 16px;
+}
+
+.text-white {
+    margin: 0;
+}
+
+.invalid-feedback {
+    display: block;
+}
+
+.rm-b-t {
+    border-top: 1px solid transparent !important;
+}
+
+.rm-b-b {
+    border-bottom: 1px solid transparent !important;
+}
+
+.rm-b-l {
+    border-left: 1px solid transparent !important;
+}
+
+.rm-b-r {
+    border-right: 1px solid transparent !important;
+}
+
+
+/*
+@media screen and (max-width:900px){
+    .topbar-left{
+        display: none !important;
+    }
+} */
+
+
+/* SELECT2 height */
+
+.select2-selection__rendered {
+    line-height: 31px !important;
+}
+
+.select2-container .select2-selection--single {
+    height: 36px !important;
+}
+
+.select2-selection__arrow {
+    height: 38px !important;
+}
+
+@media print {
+    .table-bordered td.rm-b-t {
+        border-top: 1px solid transparent !important;
+    }
+    .table-bordered td.rm-b-b {
+        border-bottom: 1px solid transparent !important;
+    }
+    .table-bordered td.rm-b-l {
+        border-left: 1px solid transparent !important;
+    }
+    .table-bordered td.rm-b-r {
+        border-right: 1px solid transparent !important;
+    }
+    body header {
+        display: none !important;
+    }
+    .print_area {
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+    .print_area * {
+        visibility: visible !important;
+    }
+    .print_hidden {
+        display: none;
+    }
+    .pagination {
+        display: none;
+    }
+    aside,
+    footer {
+        display: none !important;
+    }
+    body>.topbar+main {
+        padding-top: 0;
+        margin-left: 0;
+    }
+    .main-content {
+        padding-left: 0 !important;
+    }
+    .table-responsive {
+        overflow-x: visible;
+    }
+}
+
+
+/* make dropdown on top of topBar */
+
+.dropdown-menu {
+    z-index: 1000 !important;
+}
+
+.field_required {
+    color: red;
+    font-size: 1.2em;
+}
+
+.field_required:after {
+    content: '*';
+}
+
+.form-group {
+    margin-bottom: 0.25rem;
+}
+
+
+/* sidebar icons */
+
+.sidebar_icon {
+    height: 22px;
+    /* margin-right: 3px; */
+}
+
+@media (max-width: 575.98px) {
+    .sm_hidden {
+        display: none;
+    }
+    .brand_btn {
+        background-color: #03a313;
+        color: #fff;
+        transition: 0.5s;
+    }
+    .brand_btn:hover {
+        background-color: white;
+        color: #03a313;
+        border: 1px solid #03a313;
+        transition: 0.5s;
+    }
+}

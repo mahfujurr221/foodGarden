@@ -1,0 +1,146 @@
+ a#clearList {
+     font-size: 17px;
+     color: #000;
+ }
+ 
+ .header {
+     margin-bottom: 0px;
+ }
+ 
+ .main-content {
+     padding: 20px 15px 0;
+ }
+ 
+ .product {
+     border: 1px solid #DDD;
+     cursor: pointer;
+ }
+ 
+ .table>thead>tr>th {
+     text-align: center !important;
+ }
+ 
+ .table>thead>tr>td {
+     text-align: center !important;
+ }
+ 
+ .table td {
+     padding: 5px;
+     text-align: center;
+     vertical-align: middle;
+ }
+ 
+ .plusminus {
+     display: inline-block;
+     position: relative;
+     font-size: 0;
+     overflow: hidden;
+     border-radius: 3px;
+     width: 30px;
+     height: 132px;
+ }
+ 
+ .plusminus button {
+     display: block;
+     width: 27px;
+     height: 30px;
+     position: absolute;
+     margin: 0;
+     padding: 0;
+     border: 0;
+     background: #093eeb;
+     color: #fff;
+     font-size: 17px;
+     line-height: 1;
+     cursor: pointer;
+     -moz-transition: color 200ms;
+     -o-transition: color 200ms;
+     -webkit-transition: color 200ms;
+     transition: color 200ms;
+ }
+ 
+ .plusminus button:focus {
+     outline: none;
+     color: #2bebaf;
+ }
+ 
+ .plusminus button:disabled {
+     background: #093eeb;
+     color: #ccc;
+     cursor: default;
+ }
+ 
+ .plusminus button:first-child {
+     bottom: 0;
+ }
+ 
+ .plusminus button:first-child:before {
+     content: "-";
+ }
+ 
+ .plusminus button:last-child {
+     top: 0;
+ }
+ 
+ .plusminus button:last-child:before {
+     content: "+";
+ }
+ 
+ .plusminus button:last-child:focus {
+     color: #ff6367;
+ }
+ 
+ .plusminus input[type="number"] {
+     position: absolute;
+     width: 44px;
+     height: 30px;
+     top: 30px;
+     margin: 0;
+     border: 0;
+     font-size: 13px;
+     font-weight: bold;
+     text-align: center;
+     -moz-appearance: textfield;
+ }
+ 
+ .plusminus input[type="number"]::-webkit-outer-spin-button,
+ .plusminus input[type="number"]::-webkit-inner-spin-button {
+     -webkit-appearance: none;
+     margin: 0;
+ }
+ 
+ .plusminus.horiz {
+     width: 91px;
+     height: 30px;
+ }
+ 
+ .plusminus.horiz button:first-child {
+     left: 0;
+ }
+ 
+ .plusminus.horiz button:last-child {
+     right: 0;
+ }
+ 
+ .plusminus.horiz:after {
+     bottom: 0;
+ }
+ 
+ .plusminus.horiz input[type="number"] {
+     position: absolute;
+     top: 0;
+     left: 27px;
+ }
+ 
+ .form-control_custom {
+     text-align: center;
+     font-weight: bold;
+     border: none;
+     color: #000;
+     border-bottom: #ccc solid 1px;
+     height: 30px;
+ }
+ 
+ #tbody {
+     min-height: 500px;
+ }
