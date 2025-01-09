@@ -12,7 +12,7 @@ class ProductOptions
      public function compose(View $view)
      {
           // $categories = Category::orderBy('name')->get();
-          // $brands = Brand::orderBy('name')->get();
+          // $brands = Supplier::orderBy('name')->get();
           // $product_types = json_decode(ProductType::type());
 
           // $view->withBrands($brands)

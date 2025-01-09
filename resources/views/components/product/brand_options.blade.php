@@ -5,7 +5,7 @@
      <label for="">Brand</label>
      <select name="brand_id" id="" class="form-control">
      <option value="">Select Brand</option>
-     @foreach (\App\Brand::all() as $brand)
+     @foreach (\App\Supplier::all() as $brand)
           <option 
           @isset($brand_id)
               {{ $brand_id == $brand->id ? 'selected' : '' }}

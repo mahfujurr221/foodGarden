@@ -59,7 +59,7 @@
                                         <td>
                                             @if($item->brand_id)
                                                 @foreach(json_decode($item->brand_id) as $brandId)
-                                                    {{ \App\Brand::find($brandId)->name }},
+                                                    {{ \App\Supplier::find($brandId)->name }},
                                                 @endforeach
                                             @else
                                                 N/A

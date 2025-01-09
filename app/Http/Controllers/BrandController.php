@@ -31,7 +31,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $brands = Brand::latest()->paginate(10);
+        $brands = Supplier::latest()->paginate(10);
         return view('pages.brand.index')
             ->withBrands($brands);
     }
@@ -59,7 +59,7 @@ class BrandController extends Controller
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:300'
         ]);
 
-        $brand = Brand::create([
+        $brand = Supplier::create([
             'name' => $request->name,
             'slug' => str_slug($request->name),
             'description' => $request->description
@@ -177,7 +177,7 @@ class BrandController extends Controller
             //     $name = $brand[1][0];
             //     $description = $brand[1][1];
 
-            //     $existingBrand = Brand::where('name', $name)->first();
+            //     $existingBrand = Supplier::where('name', $name)->first();
             //     if ($existingBrand) {
             //         $existingBrand->update([
             //             'name' => $name,
@@ -185,7 +185,7 @@ class BrandController extends Controller
             //             'description' => $description
             //         ]);
             //     } else {
-            //         Brand::create([
+            //         Supplier::create([
             //             'name' => $name,
             //             'slug' => Str::slug($name),
             //             'description' => $description

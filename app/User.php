@@ -52,7 +52,7 @@ class User extends Authenticatable
     //join with brand
     public function brands()
     {
-        return $this->belongsTo(Brand::class, 'brand_id');
+        return $this->belongsTo(Supplier::class, 'brand_id');
     }
 
 }

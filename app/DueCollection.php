@@ -31,6 +31,6 @@ class DueCollection extends Model
     //brand
     public function brand()
     {
-        return $this->belongsTo(Brand::class, 'brand_id');
+        return $this->belongsTo(Supplier::class, 'brand_id');
     }
 }

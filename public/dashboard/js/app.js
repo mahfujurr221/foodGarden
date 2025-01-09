@@ -183,7 +183,7 @@ function($, window) {
     // Application colors
     //
     app.colors = {
-        primary: "#03a313",
+        primary: "#0d9e4c",
         secondary: "#e4eaec",
         success: "#46be8a",
         info: "#48b0f7",

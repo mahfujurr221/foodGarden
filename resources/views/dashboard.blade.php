@@ -2,7 +2,7 @@
 @section('title', 'Dashboard')
 {{-- this query is for brand wise sales report --}}
 @php
-$brands = \App\Brand::whereIn('id', json_decode(auth()->user()->brand_id))->get();
+$brands = \App\Supplier::whereIn('id', json_decode(auth()->user()->brand_id))->get();
 
 $return_products = \App\PosItem::join('products', 'products.id', '=', 'pos_items.product_id')
 ->where('pos_items.created_at', '>=', date('Y-m-d') . ' 00:00:00')
@@ -123,9 +123,9 @@ $products = \App\EstimateItem::join('products', 'products.id', '=', 'estimate_it
         <table class="table table-bordered table-striped table-hover table-responsive-sm">
             @php
             if(auth()->user()->hasRole('admin')){
-            $brands = \App\Brand::get();
+            $brands = \App\Supplier::get();
             }else{
-            $brands = \App\Brand::whereIn('id', json_decode(auth()->user()->brand_id))->get();
+            $brands = \App\Supplier::whereIn('id', json_decode(auth()->user()->brand_id))->get();
             }
             $summary = new \App\Services\SummaryService();
             @endphp

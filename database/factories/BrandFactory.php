@@ -6,7 +6,7 @@ use App\Brand;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
-$factory->define(Brand::class, function (Faker $faker) {
+$factory->define(Supplier::class, function (Faker $faker) {
     $name = $faker->word;
     return [
         'name' => $name,

@@ -70,7 +70,7 @@ class PosController extends Controller
         }
         $customers = Customer::get();
         $products = Product::select('id', 'name', 'code')->get();
-        $brands = Brand::select('id', 'name')->get();
+        $brands = Supplier::select('id', 'name')->get();
         return view('pages.pos.index', compact('sales', 'customers', 'products', 'total', 'brands'))
             ->withPos($pos);
         // ->withCustomers(Customer::all());

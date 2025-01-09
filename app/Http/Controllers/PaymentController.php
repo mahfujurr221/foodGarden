@@ -69,7 +69,7 @@ class PaymentController extends Controller
     {
         $payments       = DueCollection::query();
         $customers      = Customer::all();
-        $brands = Brand::select('id', 'name')->get();
+        $brands = Supplier::select('id', 'name')->get();
 
         if ($request->customer) {
             $payments = $payments->where('customer_id', $request->customer);
@@ -99,7 +99,7 @@ class PaymentController extends Controller
     {
         $payments       = DueCollection::query();
         $customers      = Customer::all();
-        $brands = Brand::select('id', 'name')->get();
+        $brands = Supplier::select('id', 'name')->get();
 
         // if ($request->customer) {
         //     $payments = $payments->where('customer_id', $request->customer);
@@ -130,7 +130,7 @@ class PaymentController extends Controller
     {
         $payments       = DueCollection::query();
         $customers      = Customer::all();
-        $brands = Brand::select('id', 'name')->get();
+        $brands = Supplier::select('id', 'name')->get();
         $payments = $payments->where('due', '>', 0)->where('committed_due_date', date('Y-m-d'))->latest()->get();
         return view('pages.payments.today-due-collection', compact('customers', 'payments', 'brands'));
     }

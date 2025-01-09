@@ -12,7 +12,7 @@ class BrandSeeder extends Seeder
      */
     public function run()
     {
-        Brand::create([
+        Supplier::create([
             'name' => 'Apple',
             'slug' => str_slug('Apple'),
             'description' => 'Apple Brand Description'

@@ -262,7 +262,7 @@ class OrderReturnController extends Controller
                 ->orderBy('order_return_items.id', 'desc')->paginate(20);
         }
         // dd($damages);
-        $brands = Brand::select('id', 'name')->get();
+        $brands = Supplier::select('id', 'name')->get();
         return view('pages.pos_return.order-return', compact('returns', 'brands', 'brand_id'));
     }
 

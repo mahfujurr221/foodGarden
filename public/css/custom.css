@@ -29,13 +29,13 @@
 
 .code {
     border-radius: 20px;
-    border: 1px solid #03a313;
+    border: 1px solid #0d9e4c;
     background: rgb(247, 245, 245);
     display: block;
 }
 
 .brand_btn {
-    background-color: #03a313;
+    background-color: #0d9e4c;
     color: #fff;
     border-radius: 10px;
     transition: 0.5s;
@@ -44,15 +44,15 @@
 
 .brand_btn:hover {
     background-color: white;
-    color: #03a313;
+    color: #0d9e4c;
     border-radius: 10px;
-    border: 1px solid #03a313;
+    border: 1px solid #0d9e4c;
     transition: 0.5s;
 }
 
 .product {
-    background: #03a313;
-    border: 1px solid #03a313;
+    background: #0d9e4c;
+    border: 1px solid #0d9e4c;
     border-radius: 20px;
     color: white;
     margin: 5px;
@@ -72,9 +72,9 @@
 
 .product:hover {
     background: white;
-    border: 1px solid #03a313;
+    border: 1px solid #0d9e4c;
     border-radius: 20px;
-    color: #03a313;
+    color: #0d9e4c;
     transition: 0.3s;
 }
 
@@ -85,7 +85,7 @@
 }
 
 .add_btn {
-    background-color: #03a313;
+    background-color: #0d9e4c;
     color: #fff;
     border-radius: 20px;
     transition: 0.5s;
@@ -93,7 +93,7 @@
 }
 
 .payment_btn {
-    background-color: #11dc7a;
+    background-color: #0d9e4c;
     color: #fff;
     border-radius: 20px;
     transition: 0.5s;
@@ -102,9 +102,9 @@
 
 .payment_btn:hover {
     background-color: white;
-    color: #11dc7a;
+    color: #0d9e4c;
     border-radius: 20px;
-    border: 1px solid #11dc7a;
+    border: 1px solid #0d9e4c;
     transition: 0.5s;
 }
 

@@ -291,8 +291,8 @@ class DamageController extends Controller
             ->orderBy('order_damage_items.id', 'desc')->get();
 
         // dd($damages);
-        $brands = Brand::select('id', 'name')->get();
-        $brand_name = Brand::find($brand_id)->name;
+        $brands = Supplier::select('id', 'name')->get();
+        $brand_name = Supplier::find($brand_id)->name;
         return view('pages.damage.order-damage', compact('damages', 'brands', 'brand_id', 'brand_name', 'all_damage_id'));
     }
 
@@ -349,8 +349,8 @@ class DamageController extends Controller
                 ->orderBy('order_damage_items.id', 'desc')->paginate(20);
         }
         // dd($damages);
-        $brands = Brand::select('id', 'name')->get();
-        $brand_name = Brand::find($brand_id)->name;
+        $brands = Supplier::select('id', 'name')->get();
+        $brand_name = Supplier::find($brand_id)->name;
         return view('pages.damage.adjusted-damage', compact('damages', 'brands', 'brand_id', 'brand_name'));
     }
 }

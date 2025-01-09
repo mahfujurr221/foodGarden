@@ -193,14 +193,14 @@ strong {
         display: none;
     }
     .brand_btn {
-        background-color: #03a313;
+        background-color: #0d9e4c;
         color: #fff;
         transition: 0.5s;
     }
     .brand_btn:hover {
         background-color: white;
-        color: #03a313;
-        border: 1px solid #03a313;
+        color: #0d9e4c;
+        border: 1px solid #0d9e4c;
         transition: 0.5s;
     }
 }

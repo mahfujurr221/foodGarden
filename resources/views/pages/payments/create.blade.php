@@ -135,7 +135,7 @@
                         <label for="brand">Due Brand <span class="field_required"></span></label>
                         <select name="brand" class="form-control {{ $errors->has('brand') ? 'is-invalid': '' }}">
                             <option value="">Select Brand</option>
-                            @foreach (\App\Brand::get() as $item)
+                            @foreach (\App\Supplier::get() as $item)
                             <option value="{{ $item->id }}" {{ old("brand")==$item->id?"SELECTED":"" }}>
                                 {{ $item->name }}
                             </option>

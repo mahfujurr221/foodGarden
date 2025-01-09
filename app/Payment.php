@@ -47,29 +47,21 @@ class Payment extends Model
         return $this->belongsTo(ActualPayment::class, 'actual_payment_id', 'id');
     }
 
-    
     public function account()
     {
         return $this->belongsTo(BankAccount::class,'bank_account_id');
     }
 
-
-
     protected static function boot(){
         parent::boot();
-
         static::saved(function($payment){
             $payment->paymentable->update_calculated_data();
             if($payment->paymentable_type==Purchase::class){
                 $payment->paymentable->supplier->update_calculated_data();
             }
-
             if($payment->paymentable_type==Pos::class){
-                // info('Pos Payment Created');
-                // $payment->paymentable->update_calculated_data();
                 $payment->paymentable->customer?$payment->paymentable->customer->update_calculated_data():null;
             }
-
             $payment->actual_payment->update_calculated_data();
         });
 
@@ -81,14 +73,10 @@ class Payment extends Model
             }
             if($payment->paymentable&&$payment->paymentable_type==Purchase::class){
                 $payment->paymentable->supplier->update_calculated_data();
-
             }
-
             if($payment->paymentable&&$payment->paymentable_type==Pos::class){
-                // $payment->paymentable->update_calculated_data();
                 $payment->paymentable->customer?$payment->paymentable->customer->update_calculated_data():null;
             }
-
             // $payment->transaction->delete();
         });
     }

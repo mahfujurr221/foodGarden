@@ -74,7 +74,7 @@ class ProductController extends Controller
             orderBy('id', 'DESC')
             ->get();
         $customers = Customer::orderBy('name')->get();
-        $brands = Brand::select('id', 'name')->get();
+        $brands = Supplier::select('id', 'name')->get();
 
         return view('pages.product.index', compact('products', 'customers', 'brands'));
         // ->withProducts($products)
@@ -318,7 +318,7 @@ class ProductController extends Controller
     public function brands()
     {
         $query = request('query');
-        $rands = Brand::select('id', 'name')->where('name', 'LIKE', "%$query%")->get();
+        $rands = Supplier::select('id', 'name')->where('name', 'LIKE', "%$query%")->get();
         return $rands;
     }
 
@@ -354,7 +354,7 @@ class ProductController extends Controller
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()->all()]);
         }
-        Brand::create([
+        Supplier::create([
             'name' => $request->name,
             'slug' => str_slug($request->name)
         ]);
