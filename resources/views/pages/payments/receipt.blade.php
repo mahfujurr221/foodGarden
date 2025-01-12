@@ -56,9 +56,9 @@
                 <table class="table table-bordered table-plist my-3 order-details">
                     <tr class="">
                         <th>Date</th>
-                        <th>Previous Date</th>
+                        <th>Previous Due</th>
                         <th>Paid</th>
-                        <th>Due</th>
+                        <th>New Due</th>
                     </tr>
                     <tbody>
                         <tr>

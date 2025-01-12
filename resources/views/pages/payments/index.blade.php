@@ -9,7 +9,7 @@
     </h1>
   </div>
 
-  <div class="header-action">
+  {{-- <div class="header-action">
     <nav class="nav">
       <a class="nav-link active" href="{{ route('payment.index') }}">
         Customer Payments
@@ -19,7 +19,7 @@
         Add Payment
       </a>
     </nav>
-  </div>
+  </div> --}}
 
 </header>
 @endsection

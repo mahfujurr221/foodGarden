@@ -9,7 +9,7 @@
     </h1>
   </div>
 
-  <div class="header-action">
+  {{-- <div class="header-action">
     <nav class="nav">
       <a class="nav-link active" href="{{ route('payment.supplier-payment') }}">
         Supplier Payments
@@ -20,7 +20,7 @@
         Add Payment
       </a>
     </nav>
-  </div>
+  </div> --}}
 
 </header>
 @endsection
@@ -62,12 +62,10 @@
       </div>
 
       <div class="card-footer">
-
         <button type="submit" class="btn btn-success">
           Filter
         </button>
         <a href="{{ request()->url() }}" class="btn btn-info"> Reset </a>
-
         <div class="float-right">
           <a href="" class="btn btn-primary pull-right" onclick="window.print()">Print</a>
         </div>

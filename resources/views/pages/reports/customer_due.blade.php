@@ -212,7 +212,7 @@
                             <label for="">Due/Receicve By</label>
                             <select name="due_by" id="" class="form-control" required>
                                 <option value="">Select Account</option>
-                                @foreach (\App\User::select('id', 'fname')->get() as $item)
+                                @foreach (\App\User::select('id', 'fname')->where('id', '!=', 2)->get() as $item)
                                 <option value="{{ $item->id }}" {{ old("due_by")==$item->id?"SELECTED":"" }}>
                                     {{ $item->fname }}</option>
                                 @endforeach

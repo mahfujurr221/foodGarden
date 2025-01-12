@@ -251,6 +251,7 @@ class PaymentController extends Controller
 
     public function destroy(ActualPayment $payment)
     {
+        // dd($payment);
         // $actual_payment = ActualPayment::where('id', $payment->actual_payment_id)->first();
         // if ($actual_payment != null) {
         //     $actual_payment->amount = $actual_payment->amount - $payment->pay_amount;
@@ -259,8 +260,33 @@ class PaymentController extends Controller
         //         $actual_payment->delete();
         //     }
         // }
+        //adjust due collection
+        $dueCollection = DueCollection::where('payment_id', $payment->id)->first();
+        if ($dueCollection != null) {
+            $dueCollection->due = $dueCollection->due + $payment->amount;
+            $dueCollection->paid = $dueCollection->paid - $payment->amount;
+            $dueCollection->payment_id = null;
+            $dueCollection->save();
 
+            if($dueCollection->due==0){
+                $dueCollection->status=1;
+                $dueCollection->save();
+            }
+        }
         if ($payment->delete()) {
+            session()->flash('success', 'Payment Delete Success');
+        } else {
+            session()->flash('warning', 'Deletion Failed!');
+        }
+        return back();
+    }
+
+    //dueCollectionDestroy
+    public function dueCollectionDestroy($id)
+    {
+        // dd($id);
+        $dueCollection = DueCollection::find($id);
+        if ($dueCollection->delete()) {
             session()->flash('success', 'Payment Delete Success');
         } else {
             session()->flash('warning', 'Deletion Failed!');
@@ -280,6 +306,14 @@ class PaymentController extends Controller
     public function partial_delete(Payment $payment)
     {
         if ($payment->delete()) {
+            $actual_payment = ActualPayment::where('id', $payment->actual_payment_id)->first();
+            if ($actual_payment != null) {
+                $actual_payment->amount = $actual_payment->amount - $payment->pay_amount;
+                $actual_payment->save();
+                if ($actual_payment->amount == 0) {
+                    $actual_payment->delete();
+                }
+            }
             session()->flash('success', 'Payment Delete Success');
         } else {
             session()->flash('warning', 'Deletion Failed!');
@@ -341,7 +375,7 @@ class PaymentController extends Controller
 
         $dueCollection->due = $dueCollection->due - $request->amount;
         $dueCollection->paid = $dueCollection->paid + $request->amount;
-        $dueCollection->last_due_date = $request->payment_date;
+        // $dueCollection->last_due_date = $request->payment_date;
         $dueCollection->committed_due_date = $request->committed_date ?? $request->payment_date;
         $dueCollection->payment_id = $actual_payment->id;
         $dueCollection->save();

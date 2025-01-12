@@ -222,6 +222,9 @@ Route::prefix('back')->middleware(['auth'])->group(function () {
     Route::get('payment-receipt/{actual_payment}', 'PaymentController@payment_receipt')->name('payment_receipt');
     Route::post('payment/due-payment', 'PaymentController@dueCollectionPayment')->name('payment.due_payment');
 
+    //dueCollectionDestroy
+    Route::delete('payment/due-collection-destroy/{id}', 'PaymentController@dueCollectionDestroy')->name('payment.due-collection-destroy');
+
     /*payment_delete*/
     Route::delete('payment/partial_delete/{payment}', 'PaymentController@partial_delete')->name('payment.partial_delete');
 

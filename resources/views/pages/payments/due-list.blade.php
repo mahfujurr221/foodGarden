@@ -9,7 +9,7 @@
     </h1>
   </div>
 
-  <div class="header-action">
+  {{-- <div class="header-action">
     <nav class="nav">
       <a class="nav-link active" href="{{ route('payment.customer-due-list') }}">
         Due List
@@ -25,7 +25,7 @@
         Add Payment
       </a>
     </nav>
-  </div>
+  </div> --}}
 
 </header>
 @endsection
@@ -115,6 +115,7 @@
             <th>Commited Date</th>
             <th>Brand</th>
             <th>Amount</th>
+            <th>Due Type</th>
             <th>Paid</th>
             <th>Due</th>
             <th class="print_hidden">#</th>
@@ -138,6 +139,13 @@
             <td>{{ date('d M, Y', strtotime($item->committed_due_date)) }}</td>
             <td>{{ $item->brand->name??'-' }}</td>
             <td>{{ number_format($item->amount) }}/-</td>
+            <td>
+              @if($item->direct_transection==1)
+              <span class="badge badge-warning">Wallet Due</span>
+              @else
+              <span class="badge badge-info">Sale Due</span>
+              @endif
+            </td>
             <td class="text-success">{{ number_format($item->paid) }}/-</td>
             <td class="text-danger">{{ number_format($item->due) }}/-</td>
 
@@ -176,7 +184,7 @@
                     Ledger
                   </a>
 
-                  <a href="{{ route('payment.destroy', $item->id) }}" class="dropdown-item delete">
+                  <a href="{{ route('payment.due-collection-destroy', $item->id) }}" class="dropdown-item delete">
                     <i class="fa fa-trash"></i>
                     Delete
                   </a>

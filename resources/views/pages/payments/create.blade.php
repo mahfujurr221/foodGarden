@@ -9,7 +9,7 @@
         </h1>
     </div>
 
-    <div class="header-action">
+    {{-- <div class="header-action">
         <nav class="nav">
             <a class="nav-link" href="{{ route('payment.index') }}">
                 Customer Payments
@@ -25,7 +25,7 @@
                 Add Payment
             </a>
         </nav>
-    </div>
+    </div> --}}
 
 </header>
 @endsection
@@ -34,9 +34,7 @@
 <div class="col-lg-12">
     <div class="card">
         <h4 class="card-title">Create Payment</h4>
-
         {{-- {{ $errors }} --}}
-
         <form action="{{ route('payment.store') }}" method="POST">
             @csrf
             <div class="card-body">
@@ -49,30 +47,23 @@
                         <span class="invalid-feedback">{{ $errors->first('transaction_number') }}</span>
                         @endif
                     </div> --}}
-
-                    <div class="form-group col-2">
-                        <label for="direct_transection">Wallet/Direct Transaction</label>
-                        <select name="direct_transection" id=""
-                            class="form-control {{ $errors->has('direct_transection') ? 'is-invalid': '' }}">
-                            <option value="0">No</option>
-                            <option value="1">Yes</option>
-                        </select>
-                        @if($errors->has('direct_transection'))
-                        <span class="invalid-feedback">{{ $errors->first('direct_transection') }}</span>
-                        @endif
-                    </div>
-
-                    <div class="form-group col-lg-4">
+                    <div class="form-group col-lg-6">
                         <label for="payment_date">Payment Date<span class="field_required"></span></label>
-                        <input type="text" class="form-control {{ $errors->has('payment_date') ? 'is-invalid': '' }}"
-                            data-provide="datepicker" data-date-today-highlight="true" data-date-format="yyyy-mm-dd"
-                            name="payment_date" value="{{ date('Y-m-d') }}">
+                        <input type="date" class="form-control {{ $errors->has('payment_date') ? 'is-invalid': '' }}"
+                            name="payment_date" id="payment_date" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
+                            required>
                         @if($errors->has('payment_date'))
                         <span class="invalid-feedback">{{ $errors->first('payment_date') }}</span>
                         @endif
                     </div>
 
                     <div class="form-group col-lg-6">
+                        <label for="committed_date">Committed Date<span class="field_required"></span></label>
+                        <input type="date" class="form-control" name="committed_date" id="committed_date"
+                            value="{{ \Carbon\Carbon::now()->addDays(7)->format('Y-m-d') }}" required>
+                    </div>
+
+                    <div class="form-group col-lg-6 d-none">
                         <label for="payment_type">Payment Type<span class="field_required"></span></label>
                         <select name="payment_type" id="payment_type"
                             class="form-control {{ $errors->has('payment_type') ? 'is-invalid': '' }}">
@@ -115,11 +106,7 @@
                         @endif
                     </div>
 
-                    <div class="form-group col-lg-6" id="committed_date">
-                        <label for="committed_date">Committed Date<span class="field_required"></span></label>
-                        <input type="date" class="form-control" data-provide="datepicker" data-date-format="yyyy-mm-dd"
-                            value="{{ date('Y-m-d', strtotime('+1 day')) }}" name="committed_date">
-                    </div>
+
 
                     <div class="form-group col-lg-6">
                         <label for="amount">Amount<span class="field_required"></span></label>
@@ -131,22 +118,9 @@
                         @endif
                     </div>
 
-                    <div class="form-group col-lg-6" id="brand">
-                        <label for="brand">Due Brand <span class="field_required"></span></label>
-                        <select name="brand" class="form-control {{ $errors->has('brand') ? 'is-invalid': '' }}">
-                            <option value="">Select Brand</option>
-                            @foreach (\App\Supplier::get() as $item)
-                            <option value="{{ $item->id }}" {{ old("brand")==$item->id?"SELECTED":"" }}>
-                                {{ $item->name }}
-                            </option>
-                            @endforeach
-                        </select>
-                    </div>
-
-
-                    <div class="form-group col-6" id="bank_account_id">
+                    <div class="form-group col-6 d-none" id="bank_account_id">
                         <label for="">Transaction Account</label>
-                        <select name="bank_account_id" id="" class="form-control bank_account_id" required>
+                        <select name="bank_account_id" id="" class="form-control bank_account_id">
                             <option value="">Select Account</option>
                             @foreach (\App\BankAccount::all() as $item)
                             <option value="{{ $item->id }}" {{ old("bank_account_id")==$item->id?"SELECTED":"" }}>
@@ -159,7 +133,7 @@
                     </div>
 
 
-                    <div class="form-group col-lg-12" id="details">
+                    <div class="form-group col-lg-6" id="details">
                         <strong>Name : <span id="account_name">xx</span></strong>
                         <br>
                         <strong>Due Invoice Count: <span id="due_invoice">0</span></strong>
@@ -174,25 +148,37 @@
                         <strong><span class="wb_text">Total Due:</span> <span id="total_due">0</span> Tk</strong>
                     </div>
 
-                    <div class="form-group col-6">
-                        <label for="">Due/Receicve By</label>
-                        <select name="due_by" id="" class="form-control">
-                            <option value="">Select Account</option>
-                            @foreach (\App\User::select('id', 'fname')->get() as $item)
-                            <option value="{{ $item->id }}" {{ old("due_by")==$item->id?"SELECTED":"" }}>
-                                {{ $item->fname }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <div class="row col-md-12">
+                        <div class="form-group col-lg-6" id="brand">
+                            <label for="brand">Due Brand <span class="field_required"></span></label>
+                            <select name="brand" class="form-control {{ $errors->has('brand') ? 'is-invalid': '' }}">
+                                <option value="">Select Brand</option>
+                                @foreach (\App\Supplier::get() as $item)
+                                <option value="{{ $item->id }}" {{ old("brand")==$item->id?"SELECTED":"" }}>
+                                    {{ $item->name }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
 
-
-                    <div class="form-group col-lg-6">
-                        <label for="note">Note </label>
-                        <textarea name="note" class="form-control {{ $errors->has('note') ? 'is-invalid': '' }}"
-                            placeholder="Write Note. (optional)"></textarea>
-                        @if($errors->has('note'))
-                        <span class="invalid-feedback">{{ $errors->first('note') }}</span>
-                        @endif
+                        <div class="form-group col-6">
+                            <label for="">Due/Receicve By</label>
+                            <select name="due_by" id="" class="form-control">
+                                <option value="">Select Account</option>
+                                @foreach (\App\User::select('id', 'fname')->where('id', '!=', 2)->get() as $item)
+                                <option value="{{ $item->id }}" {{ old("due_by")==$item->id?"SELECTED":"" }}>
+                                    {{ $item->fname }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-lg-12">
+                            <label for="note">Note </label>
+                            <textarea name="note" class="form-control {{ $errors->has('note') ? 'is-invalid': '' }}"
+                                placeholder="Write Note. (optional)"></textarea>
+                            @if($errors->has('note'))
+                            <span class="invalid-feedback">{{ $errors->first('note') }}</span>
+                            @endif
+                        </div>
                     </div>
 
                     <div class="col-12">
@@ -290,4 +276,39 @@
         });
 </script>
 
+{{-- <script>
+    $("#payment_date").on('change', function () {
+        var payment_date = $(this).val();
+        if (payment_date) {
+            var selectedDate = new Date(payment_date);
+            selectedDate.setDate(selectedDate.getDate() + 7);
+            var year = selectedDate.getFullYear();
+            var month = String(selectedDate.getMonth() + 1).padStart(2, '0');
+            var day = String(selectedDate.getDate()).padStart(2, '0');
+            $("#committed_date").val(`${day}-${month}-${year}`);
+        }
+    });
+</script> --}}
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const paymentDateInput = document.getElementById('payment_date');
+        const committedDateInput = document.getElementById('committed_date');
+
+        paymentDateInput.addEventListener('change', function () {
+            const paymentDate = this.value; // Get the value in yyyy-mm-dd format
+            if (paymentDate) {
+                const selectedDate = new Date(paymentDate);
+                selectedDate.setDate(selectedDate.getDate() + 7);
+
+                // Format the date as yyyy-mm-dd for the committed_date input
+                const year = selectedDate.getFullYear();
+                const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
+                const day = String(selectedDate.getDate()).padStart(2, '0');
+                committedDateInput.value = `${year}-${month}-${day}`;
+            }
+        });
+    });
+</script>
 @endsection

@@ -38,6 +38,12 @@ class ActualPayment extends Model
         return $this->morphOne(Transaction::class, 'transactable');
     }
 
+    //due collection
+    public function dueCollection()
+    {
+        return $this->belongsTo(DueCollection::class, 'payment_id');
+    }
+
     public function update_calculated_data() {
         if($this->payments()->first()){
             $due = 0;

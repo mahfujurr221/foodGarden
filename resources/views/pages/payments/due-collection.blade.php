@@ -14,7 +14,6 @@
 
 @section('content')
 <div class="col-lg-12">
-
   {{-- <div class="card">
     <form>
       <div class="card-body">
@@ -181,7 +180,7 @@
                     Ledger
                   </a>
 
-                  <a href="{{ route('payment.destroy', $item->id) }}" class="dropdown-item delete">
+                  <a href="{{ route('payment.due-collection-destroy', $item->id) }}" class="dropdown-item delete">
                     <i class="fa fa-trash"></i>
                     Delete
                   </a>
@@ -276,7 +275,7 @@
                             <label for="">Receicve By</label>
                             <select name="due_by" id="" class="form-control" required>
                                 <option value="">Select Account</option>
-                                @foreach (\App\User::select('id', 'fname')->get() as $item)
+                                @foreach (\App\User::select('id', 'fname')->where('id', '!=', 2)->get() as $item)
                                 <option value="{{ $item->id }}" {{ old("due_by")==$item->id?"SELECTED":"" }}>
                                     {{ $item->fname }}</option>
                                 @endforeach
