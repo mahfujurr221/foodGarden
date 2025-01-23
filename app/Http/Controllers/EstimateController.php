@@ -83,6 +83,7 @@ class EstimateController extends Controller
             $product = $item->product;
             $item->readable_quantity = $product ? $product->readable_qty($item->qty) : null;
             $item->product_stock = $product ? $product->stock : null;
+            $item->return_qty =$product ? $product->readable_qty($item->returned_qty) : null;
         });
     });
 

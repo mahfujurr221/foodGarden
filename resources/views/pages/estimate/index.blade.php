@@ -251,10 +251,9 @@
 </div>
 
 <!-- Product Details Modal -->
-<div class="modal fade" id="itemsModal" tabindex="-1" role="dialog" aria-labelledby="itemsModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content modal-lg">
+<div class="modal fade" id="itemsModal" tabindex="-1" role="dialog" aria-labelledby="itemsModalLabel" aria-hidden="true">
+    <div class="modal-dialog custom-wide-modal" role="document"> <!-- Custom class added here -->
+        <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="itemsModalLabel">Product Details</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -263,25 +262,23 @@
             </div>
             <div class="modal-body">
                 <div id="modalItemsContent">
-
                 </div>
             </div>
-
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-
-                {{-- todays delivery button --}}
-                <a href="{{ route('estimate.today_delivery') }}" class="btn btn-primary">Todays Delivery</a>
+                <a href="{{ route('estimate.today_delivery') }}" class="btn btn-primary">Today's Delivery</a>
             </div>
         </div>
     </div>
 </div>
 
-
 @endsection
 
 @section('styles')
 <style>
+    .custom-wide-modal {
+            max-width: 50% !important;
+        }
     .top-summary td {
         width: 12.5%;
         font-size: 1.5em;
@@ -339,25 +336,26 @@
             console.log(items);
             var modal = $(this);
             var modalContent = modal.find('#modalItemsContent');
-
             // Clear any previous content
             modalContent.html('');
-
             // Start the table structure
             var tableHtml = `
                 <table class="table table-bordered table-striped">
                     <thead class="bg-primary">
                         <tr>
-                            <th>Product Name</th>
-                            <th>Quantity</th>
+                            <th>Name</th>
+                            <th>O.Qty</th>
+                            <th>Returned</th>
+                            <th>Damaged</th>
+                            <th>Damaged Value</th>
                             @can('pos-profit')
                             <th>Price</th>
+                            <th>Sub.T</th>
                             @endcan
                         </tr>
                     </thead>
                     <tbody>
             `;
-
             // Populate the table rows with item data
             items.forEach(function(item) {
                 var rowClass = item.product_stock < item.qty ? 'bg-danger' : '';
@@ -365,8 +363,12 @@
                     <tr class="${rowClass}">
                         <td>${item.product.name}</td>
                         <td>${item.readable_quantity}</td>
+                        <td>${item.return_qty}</td>
+                        <td>${item.damage}pc</td>
+                        <td>${Math.round(item.damaged_value)}/-</td>
                         @can('pos-profit')
-                        <td>${item.rate}</td>
+                        <td>${Math.round(item.rate)}/-</td>
+                        <td>${Math.round(item.sub_total)}/-</td>
                         @endcan
                     </tr>
                 `;
@@ -377,7 +379,6 @@
                     </tbody>
                 </table>
             `;
-
             modalContent.append(tableHtml);
         });
     });
@@ -450,5 +451,4 @@
             });
         });
 </script>
-
 @endsection

@@ -445,6 +445,11 @@
 
         .table-bordered td {
             border: 1px solid #000 !important;
+            color: #000 !important;
+        }
+        .table-bordered th {
+            border: 1px solid #000 !important;
+            color: #000 !important;
         }
     }
 

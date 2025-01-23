@@ -57,8 +57,8 @@
                     <tr class="">
                         <th>Date</th>
                         <th>Previous Due</th>
-                        <th>Paid</th>
-                        <th>New Due</th>
+                        <th>Due/Paid</th>
+                        <th>Total Due</th>
                     </tr>
                     <tbody>
                         <tr>
@@ -390,7 +390,6 @@
 <script>
     // clear localstore
     localStorage.removeItem('pos-items');
-
     function print_receipt(divName) {
         let printDoc = $('#' + divName).html();
         let originalContents = $('body').html();

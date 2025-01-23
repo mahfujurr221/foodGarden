@@ -114,8 +114,8 @@
             <th>Due Date</th>
             <th>Commited Date</th>
             <th>Brand</th>
-            <th>Amount</th>
             <th>Due Type</th>
+            <th>Amount</th>
             <th>Paid</th>
             <th>Due</th>
             <th class="print_hidden">#</th>
@@ -138,7 +138,6 @@
             <td>{{ date('d M, Y', strtotime($item->last_due_date)) }}</td>
             <td>{{ date('d M, Y', strtotime($item->committed_due_date)) }}</td>
             <td>{{ $item->brand->name??'-' }}</td>
-            <td>{{ number_format($item->amount) }}/-</td>
             <td>
               @if($item->direct_transection==1)
               <span class="badge badge-warning">Wallet Due</span>
@@ -146,6 +145,7 @@
               <span class="badge badge-info">Sale Due</span>
               @endif
             </td>
+            <td>{{ number_format($item->amount) }}/-</td>
             <td class="text-success">{{ number_format($item->paid) }}/-</td>
             <td class="text-danger">{{ number_format($item->due) }}/-</td>
 
