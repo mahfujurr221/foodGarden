@@ -218,6 +218,7 @@
                                                 data-damage="{{ $pos_item->damage }}"
                                                 onkeydown="return event.keyCode !== 190" min="0">
                                         </td>
+
                                         <td style="width:100px; background-color:#ece9e9">
                                             <input type="number" value="{{ $pos_item->damaged_value }}"
                                                 class="form-control bg_none"
@@ -388,73 +389,75 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 @include('pages.estimate.edit-scripts')
-<script>
-    var db_pid_array;
-        // product search
-        $(document).ready(function() {
-            getPosItemId({{ $estimate->id }});
-        });
-        $(function() {
-            $("#product_search").autocomplete({
-                source: function(req, res) {
-                    let url = "{{ route('product-search') }}";
-                    $.get(url, {
-                        req: req.term
-                    }, (data) => {
-                        res($.map(data, function(item) {
-                            return {
-                                id: item.id,
-                                value: item.name,
-                                price: item.price
-                            }
-                        })); // end res
-                    });
-                },
-                select: function(event, ui) {
-                    // return;
-                    $(this).val(ui.item.value);
-                    $("#search_product_id").val(ui.item.id);
-                    let url = "{{ route('product.details', 'placeholder_id') }}".replace(
-                        'placeholder_id', ui.item.id);
-                    $.get(url, (product) => {
-                        // check stock
-                        if (product.checkSaleOverStock == 0) {
-                            if (product.stock <= 0) {
-                                toastr.warning(
-                                    'This product is Stock out. Please Purchase the Product.'
-                                );
-                                return false;
-                            }
-                        }
-                        if (pExist(product.id) == true) {
-                            toastr.warning('Please Increase the quantity.');
-                        } else {
-                            addProductToCard(product);
-                        }
-                        addProductToCard(pos_product);
-                    });
-                    $(this).val('');
-                    return false;
-                },
-                response: function(event, ui) {
-                    if (ui.content.length == 1) {
-                        ui.item = ui.content[0];
-                        $(this).data('ui-autocomplete')._trigger('select', 'autocompleteselect', ui);
-                        $(this).autocomplete('close');
-                    }
-                },
-                minLength: 0
+{{-- <script>
+    $(document).ready(function () {
+        function empty_field_check(value) {
+            return (value == null || value.trim() === "") ? 0 : parseInt(value);
+        }
+        function calculate_sub_total(main_qty, sub_qty, unit_price, related_by, has_sub_unit) {
+            let sub_unit_price = has_sub_unit ? parseFloat(unit_price / related_by) : 0;
+            return parseFloat((main_qty * unit_price) + (sub_qty * sub_unit_price)).toFixed(2);
+        }
+        function updateRowTotals(row) {
+            const unit_price = parseFloat(row.find(".rate").val()) || 0;
+            const related_by = parseInt(row.find(".returned").data("related")) || 1;
+            const has_sub_unit = row.find(".sub_qty").length > 0;
+
+            const main_qty = empty_field_check(row.find(".main_qty").val());
+            const sub_qty = empty_field_check(row.find(".sub_qty").val());
+            const returned_main = empty_field_check(row.find(".returned").val());
+            const returned_sub = empty_field_check(row.find(".returned_sub_unit").val());
+            const damage_sub = empty_field_check(row.find(".damage").val());
+
+            const ordered_qty = (main_qty * related_by) + sub_qty;
+            const returned_qty = (returned_main * related_by) + returned_sub;
+            const final_qty = ordered_qty - returned_qty - damage_sub;
+
+            if (final_qty < 0) {
+                toastr.warning("Returned & Damaged Qty Cannot Exceed Ordered Qty.");
+                row.find(".returned").val(0);
+                row.find(".returned_sub_unit").val(0);
+                row.find(".damage").val(0);
+                return updateRowTotals(row);
+            }
+
+            const sub_total = calculate_sub_total(final_qty, 0, unit_price, related_by, has_sub_unit);
+            const damage_price = parseFloat(row.find(".rate").val()) || 0;
+            const damaged_value = (damage_sub * damage_price).toFixed(2);
+
+            row.find(".sub_total").val(sub_total);
+            row.find(".damage_value").val(damaged_value);
+        }
+
+        function updateTotals() {
+            let total_amount = 0;
+
+            $("#tbody tr").each(function () {
+                const row = $(this);
+                updateRowTotals(row);
+
+                const sub_total = parseFloat(row.find(".sub_total").val()) || 0;
+                total_amount += sub_total;
             });
+
+            $("#totalAmount").text(total_amount.toFixed(2));
+        }
+
+        $(document).on("keyup change", ".returned, .damage", function () {
+            const row = $(this).closest("tr");
+            let ordered_qty = empty_field_check(row.find(".main_qty").val()) || 0;
+            let returned_qty = empty_field_check(row.find(".returned").val()) || 0;
+            let damage_qty = empty_field_check(row.find(".damage").val()) || 0;
+
+            if ((returned_qty + damage_qty) > ordered_qty) {
+                toastr.warning("Returned & Damaged Quantity Cannot Exceed Ordered Quantity.");
+                row.find(".returned").val(0);
+                row.find(".damage").val(0);
+                updateRowTotals(row);
+            }
         });
 
-        //  Set Product Id
-        function productSelected(id) {
-            console.log(id);
-        }
-        function partial_handle(id) {
-            var url = "{{ route('estimate.partial_destroy', 'partial_id') }}".replace('partial_id', id);
-            $("#partial-delete-form").attr('action', url);
-            $("#partial-confirm-modal").modal('show');
-        }
-</script>
+        updateTotals();
+    });
+</script> --}}
 @endsection

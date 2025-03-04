@@ -38,59 +38,34 @@ class EstimateController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-
-        // public function index(Request $request)
-    // {
-    //     $brands = json_decode(auth()->user()->brand_id, true);
-
-    //     $estimates = new Estimate();
-    //     $todaySale = Estimate::where('estimate_date', date('Y-m-d'))->get();
-    //     $estimate = new Estimate();
-
-    //     $estimates = $estimates->filter($request, $estimates);
-    //     $estimates = $estimates->orderBy('priority', 'asc');
-    //     if (auth()->user()->hasRole('admin')) {
-    //         $estimates = $estimates->with('customer')->where('convert_status', 0)
-    //             ->orderBy('priority', 'asc')->get();
-    //     } else {
-    //         $estimates = $estimates->whereIn('brand_id', $brands)->with('customer')->where('convert_status', 0)
-    //             ->orderBy('priority', 'asc')->get();
-    //     }
-    //     $customers = Customer::get();
-    //     return view('pages.estimate.index', compact('estimates', 'customers'))
-    //         ->withEstimate($estimate)
-    //         ->withTodaySale($todaySale);
-    //     //->withCustomers(Customer::all());
-    // }
-
     public function index(Request $request)
-{
-    $brands = json_decode(auth()->user()->brand_id, true);
+    {
+        $brands = json_decode(auth()->user()->brand_id, true);
 
-    $estimatesQuery = Estimate::query();
+        $estimatesQuery = Estimate::query();
 
-    if (auth()->user()->hasRole('admin')) {
-        $estimatesQuery->with(['customer', 'items.product'])->where('convert_status', 0);
-    } else {
-        $estimatesQuery->whereIn('brand_id', $brands)->with(['customer', 'items.product'])->where('convert_status', 0);
-    }
+        if (auth()->user()->hasRole('admin')) {
+            $estimatesQuery->with(['customer', 'items.product'])->where('convert_status', 0);
+        } else {
+            $estimatesQuery->whereIn('brand_id', $brands)->with(['customer', 'items.product'])->where('convert_status', 0);
+        }
 
-    $estimates = $estimatesQuery->orderBy('priority', 'asc')->get();
+        $estimates = $estimatesQuery->orderBy('priority', 'asc')->get();
 
-    // Preprocess items with readable quantities
-    $estimates->each(function ($estimate) {
-        $estimate->items->each(function ($item) {
-            $product = $item->product;
-            $item->readable_quantity = $product ? $product->readable_qty($item->qty) : null;
-            $item->product_stock = $product ? $product->stock : null;
-            $item->return_qty =$product ? $product->readable_qty($item->returned_qty) : null;
+        // Preprocess items with readable quantities
+        $estimates->each(function ($estimate) {
+            $estimate->items->each(function ($item) {
+                $product = $item->product;
+                $item->readable_quantity = $product ? $product->readable_qty($item->qty) : null;
+                $item->product_stock = $product ? $product->stock : null;
+                $item->return_qty = $product ? $product->readable_qty($item->returned_qty) : null;
+            });
         });
-    });
 
-    $customers = Customer::get();
+        $customers = Customer::get();
 
-    return view('pages.estimate.index', compact('estimates', 'customers'));
-}
+        return view('pages.estimate.index', compact('estimates', 'customers'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -100,14 +75,14 @@ class EstimateController extends Controller
     public function create(Request $request)
     {
         $brands = json_decode(auth()->user()->brand_id, true);
-        $brands=$brands[0];
+        $brands = $brands[0];
         $customers = Customer::latest()->get();
         $products = new Product();
         if ($request->code != null) {
             $products = $products->where('code', 'like', '%' . $request->code . '%');
         }
         if (auth()->user()->hasRole('admin')) {
-            $products = $products->where('brand_id',1)->orderBy('name')->get();
+            $products = $products->where('brand_id', 1)->orderBy('name')->get();
         } else {
             $products = $products->where('brand_id', $brands)->orderBy('name')->get();
         }
@@ -120,7 +95,7 @@ class EstimateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    
+
     public function store(Request $request)
     {
         // dd($request->all());
@@ -181,15 +156,13 @@ class EstimateController extends Controller
         } catch (\Exception $e) {
             DB::rollback();
             info($e);
-            // dd($e->getMessage());
             session()->flash('error', 'Oops Something went wrong!');
             return back();
         }
         session()->flash('success', 'Succesfully Create Estimate');
-        // return redirect()->route('estimate.index');    
         return back();
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -260,7 +233,7 @@ class EstimateController extends Controller
                     $ordered_qty = $estimate_item->product->to_sub_quantity($main_unit, $sub_unit);
                     $returned_qty = $estimate_item->product->to_sub_quantity($returned, $returned_sub);
                     $qty = $ordered_qty - $returned_qty;
-                    $ordered_quantity_worth= $estimate_item->product->quantity_worth($ordered_qty, $estimate_item->rate);
+                    $ordered_quantity_worth = $estimate_item->product->quantity_worth($ordered_qty, $estimate_item->rate);
                     $estimate_item->update([
                         'estimate_id' => $request->estimate,
                         'rate' => $request->old_rate[$key],
@@ -404,7 +377,8 @@ class EstimateController extends Controller
         return view('pages.estimate.today_delivery', compact('estimates', 'customers'));
     }
 
-    public function delivery_complete($id){
+    public function delivery_complete($id)
+    {
         $estimate = Estimate::find($id);
         $estimate->status = 1;
         $estimate->save();
@@ -412,7 +386,8 @@ class EstimateController extends Controller
         return back();
     }
 
-    public function set_priority(Request $request){
+    public function set_priority(Request $request)
+    {
         // dd($request->all());
         $estimate = Estimate::find($request->estimate_id);
         $estimate->priority = $request->priority;
@@ -420,7 +395,7 @@ class EstimateController extends Controller
         session()->flash('success', 'Estimate Priority Set');
         return back();
     }
-    
+
     public function updateDeliveryBy(Request $request)
     {
 
