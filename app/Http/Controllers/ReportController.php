@@ -97,7 +97,7 @@ class ReportController extends Controller
         Gate::authorize('daily_report');
         $start_date = date('Y-m-1');
         $end_date = date('Y-m-t');
-        $brands = Supplier::select('id', 'name')->get();
+        $brands = Supplier::where('status', 1)->select('id', 'name')->get();
         if ($request->start_date) {
             $start_date = $request->start_date;
         }
@@ -146,7 +146,7 @@ class ReportController extends Controller
 
         $suppliers = $this->paginate($suppliers);
 
-        $filter_suppliers = Supplier::select('id', 'name')->get();
+        $filter_suppliers = Supplier::where('status', 1)->select('id', 'name')->get();
 
         return view('pages.reports.supplier_due', compact('suppliers', 'filter_suppliers'));
     }
@@ -189,7 +189,7 @@ class ReportController extends Controller
         $data['start_date'] = $start_date;
         $data['end_date'] = $end_date;
         $data['customers'] = $this->paginate($customers);
-        $data['brands']=Supplier::select('id','name')->get();
+        $data['brands']=Supplier::where('status', 1)->select('id','name')->get();
         return view('pages.reports.top_customer', $data);
     }
 
@@ -316,7 +316,7 @@ class ReportController extends Controller
             $end_date = Carbon::now()->endOfYear()->toDateString();
         }
 
-        $brands = Supplier::select('id', 'name')->get();
+        $brands = Supplier::where('status', 1)->select('id', 'name')->get();
 
         return view('pages.reports.profit_loss_report', compact('start_date', 'end_date', 'brands'));
     }
@@ -394,7 +394,7 @@ class ReportController extends Controller
     //brands 
     public function brands(Request $request)
     {
-        $brands = Supplier::select('id', 'name')->get();
+        $brands = Supplier::where('status', 1)->select('id', 'name')->get();
         return response()->json([
             'brands' => $brands
         ]);

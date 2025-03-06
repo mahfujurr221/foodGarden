@@ -41,7 +41,7 @@ class PurchaseController extends Controller
         $purchases = new Purchase();
         $purchases = $purchases->filter($request, $purchases);
         $purchases = $purchases->orderBy('id', 'DESC')->paginate(20);
-        $suppliers = Supplier::select('id', 'name', 'phone')->get();
+        $suppliers = Supplier::where('status', 1)->select('id', 'name', 'phone')->get();
         $products = Product::select('id', 'name', 'code')->get();
         $purchase_service = new PurchaseService();
 
@@ -55,7 +55,7 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        $suppliers = Supplier::all();
+        $suppliers = Supplier::where('status', 1)->all();
         $products = Product::orderBy('name')->get();
         return view('pages.purchases.create', compact('suppliers', 'products'));
     }
@@ -116,7 +116,7 @@ class PurchaseController extends Controller
         //     return back();
         // }
 
-        $suppliers = Supplier::all();
+        $suppliers = Supplier::where('status', 1)->all();
         return view('pages.purchases.edit', compact('purchase', 'suppliers'));
     }
 

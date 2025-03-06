@@ -52,7 +52,7 @@ Route::prefix('back')->middleware(['auth'])->group(function () {
      */
     Route::resource('product', 'ProductController')->except('show');
     Route::get('product/sell_history/{product}', 'ProductController@sell_history')->name('product.sell_history');
-     Route::post('product/status', 'ProductController@statusUpdate')->name('product.status');
+    Route::post('product/status', 'ProductController@statusUpdate')->name('product.status');
     /*ajax*/
     Route::get('product/categories', 'ProductController@categories')->name('product.categories');
     /*ajax*/
@@ -114,7 +114,7 @@ Route::prefix('back')->middleware(['auth'])->group(function () {
     Route::post('product-scan', 'PosController@get_product')->name('get_product');
     Route::get('pos-receipt/{pos_id}', 'PosController@pos_receipt')->name('pos_receipt');
     Route::get('chalan-receipt/{pos_id}', 'PosController@chalan_receipt')->name('chalan_receipt');
-    
+
     //pos.delivery_by
     Route::any('sale/delivery_by', 'PosController@deliveryBy')->name('pos.delivery_by');
 
@@ -143,7 +143,7 @@ Route::prefix('back')->middleware(['auth'])->group(function () {
     Route::get('estimate/delivery_complete/{id}', 'EstimateController@delivery_complete')->name('estimate.delivery_complete');
     Route::post('estimate/set-priority', 'EstimateController@set_priority')->name('set.priority');
     Route::post('estimate/partial-destroy/{id}', 'EstimateController@partial_destroy')->name('estimate.partial_destroy');
-    
+
     Route::post('/update-delivery-by', 'EstimateController@updateDeliveryBy')->name('update.delivery_by');
 
     /**
@@ -174,7 +174,9 @@ Route::prefix('back')->middleware(['auth'])->group(function () {
     Route::get('supplier/wallet_payment/{supplier}', 'SupplierController@wallet_payment')->name('supplier.wallet_payment');
     Route::post('supplier/wallet_payment/{supplier}', 'SupplierController@store_wallet_payment');
     Route::resource('supplier', 'SupplierController')->except('show');
-    Route::get('supplier/{supplier}/report', 'SupplierController@report')->name('supplier.report');
+    Route::get('supplier/{supplier}/report',  'SupplierController@report')->name('supplier.report');
+
+    Route::post('/suppliers/{id}/update-status', 'SupplierController@updateStatus')->name('supplier.update-status');
 
     Route::resource('sr', 'SRController');
 

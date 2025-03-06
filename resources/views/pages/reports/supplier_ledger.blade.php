@@ -22,7 +22,7 @@
                     <select name="supplier_id" id="" class="form-control" data-provide="selectpicker"
                         data-live-search="true" data-size="10">
                         <option value="">Select a Supplier</option>
-                        @foreach (\App\Supplier::all() as $item)
+                        @foreach (\App\Supplier::where('status', 1)->all() as $item)
                         <option value="{{ $item->id }}" {{ request('supplier_id')==$item->id?"SELECTED":"" }}>{{
                             $item->name }} {{ $item->phone }}</option>
                         @endforeach
@@ -89,7 +89,7 @@
 
                 @if(request('supplier_id'))
                 @php
-                $supplier = \App\Supplier::find(request('supplier_id'));
+                $supplier = \App\Supplier::where('status', 1)->find(request('supplier_id'));
                 @endphp
                 <table class="table">
                     <tbody>

@@ -27,6 +27,8 @@ class CreateSuppliersTable extends Migration
             $table->decimal('wallet_balance',14,2)->default(0);
             $table->decimal('total_receivable',20,2)->default(0);
             $table->decimal('total_payable',20,2)->default(0);
+            //status
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

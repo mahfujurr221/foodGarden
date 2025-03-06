@@ -31,7 +31,7 @@
                             ) {
                             $brands = \App\Supplier::orderBy('name', 'ASC')->get();
                             } else {
-                            $brands = \App\Supplier::whereIn('id', json_decode(auth()->user()->brand_id))
+                            $brands = \App\Supplier::where('status', 1)->whereIn('id', json_decode(auth()->user()->brand_id))
                             ->orderBy('name', 'ASC')
                             ->get();
                             }

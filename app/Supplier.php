@@ -159,14 +159,13 @@ class Supplier extends Model
 
     public function has_default()
     {
-        return Supplier::where('default', 1)->first();
+        return Supplier::where('default', 1)->where('status', 1)->first();
     }
 
     public function get_default()
     {
         $default_supplier=$this->has_default();
         if (!$default_supplier) {
-            // dd("NO DEFAULT");
             $default_supplier = Supplier::create([
                 'name' => 'Default Supplier',
                 'email' => 'default@supplier.com',
@@ -183,7 +182,6 @@ class Supplier extends Model
     protected static function boot()
     {
         parent::boot();
-
         static::created(function($supplier){
             $supplier->update_calculated_data();
             TransactionService::add_supplier_opening_balance($supplier);
@@ -198,7 +196,7 @@ class Supplier extends Model
                 }
             }
         });
-
+        
         static::deleted(function($supplier){
             foreach($supplier->opening_transactions as $transaction){
                 $transaction->delete();

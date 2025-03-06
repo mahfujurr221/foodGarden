@@ -86,7 +86,7 @@
               data-live-search="true"
               class="form-control {{ $errors->has('account_id') ? 'is-invalid': '' }}" >
               {{-- <option value="">Select Account</option> --}}
-              @foreach(\App\Supplier::all() as $supplier)
+              @foreach(\App\Supplier::where('status', 1)->all() as $supplier)
                 <option value="{{ $supplier->id }}">{{ $supplier->name.' - '.$supplier->phone }}</option>
               @endforeach
             </select>

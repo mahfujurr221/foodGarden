@@ -18,6 +18,7 @@ use App\OrderReturnItem;
 use App\PosSetting;
 use App\Services\StockService;
 use App\Services\TransactionService;
+use App\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -64,7 +65,7 @@ class PosController extends Controller
         }
         $customers = Customer::get();
         $products = Product::select('id', 'name', 'code')->get();
-        $brands = Supplier::select('id', 'name')->get();
+        $brands = Supplier::where('status', 1)->select('id', 'name')->get();
         return view('pages.pos.index', compact('sales', 'customers', 'products', 'total', 'brands'))
             ->withPos($pos);
         // ->withCustomers(Customer::all());

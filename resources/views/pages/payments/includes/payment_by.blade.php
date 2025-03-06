@@ -28,7 +28,7 @@
     <tr>
         <th>Supplier Name:</th>
         @php
-        $supplier=\App\Supplier::find($item->supplier_id);
+        $supplier=\App\Supplier::where('status', 1)->find($item->supplier_id);
         @endphp
         <td>{{ $supplier!=null?$supplier->name:"-" }}</td>
     </tr>

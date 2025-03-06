@@ -13,6 +13,7 @@ use App\PosItem;
 use App\Services\StockService;
 use App\Services\TransactionService;
 use App\Stock;
+use App\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -262,7 +263,7 @@ class OrderReturnController extends Controller
                 ->orderBy('order_return_items.id', 'desc')->paginate(20);
         }
         // dd($damages);
-        $brands = Supplier::select('id', 'name')->get();
+        $brands = Supplier::where('status', 1)->select('id', 'name')->get();
         return view('pages.pos_return.order-return', compact('returns', 'brands', 'brand_id'));
     }
 

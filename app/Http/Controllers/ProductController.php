@@ -74,7 +74,7 @@ class ProductController extends Controller
             orderBy('id', 'DESC')
             ->get();
         $customers = Customer::orderBy('name')->get();
-        $brands = Supplier::select('id', 'name')->get();
+        $brands = Supplier::where('status', 1)->select('id', 'name')->get();
 
         return view('pages.product.index', compact('products', 'customers', 'brands'));
         // ->withProducts($products)
@@ -318,7 +318,7 @@ class ProductController extends Controller
     public function brands()
     {
         $query = request('query');
-        $rands = Supplier::select('id', 'name')->where('name', 'LIKE', "%$query%")->get();
+        $rands = Supplier::where('status', 1)->select('id', 'name')->where('name', 'LIKE', "%$query%")->get();
         return $rands;
     }
 

@@ -76,7 +76,7 @@
                             <select name="brand_id[]" class="form-control {{ $errors->has('brand_id') ? 'is-invalid' : '' }} select2" multiple
                                 required>
                                 <option disabled>Select Brand</option>
-                                @foreach (\App\Supplier::get() as $brand)
+                                @foreach (\App\Supplier::where('status', 1)->get() as $brand)
                                     <option {{ old('brand_id') == $brand->id ? 'selected' : '' }}
                                         value="{{ $brand->id }}">{{ $brand->name }}</option>
                                 @endforeach

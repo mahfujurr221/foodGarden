@@ -152,13 +152,13 @@ class SupplierController extends Controller
 
     public function suppliers()
     {
-        $suppliers = Supplier::latest()->get(['id', 'name', 'phone']);
+        $suppliers = Supplier::where('status', 1)->latest()->get(['id', 'name', 'phone']);
         return response()->json($suppliers);
     }
 
     public function supplier_due($id)
     {
-        $supplier = Supplier::findOrFail($id);
+        $supplier = Supplier::where('status', 1)->findOrFail($id);
         // $duePurchaseList = $supplier->due_purchases();
         $data = [
             'supplier_name' => $supplier->name,
@@ -278,4 +278,18 @@ class SupplierController extends Controller
         })->get();
         return view('pages.supplier.report',compact('supplier','payments'));
     }
+
+
+    public function updateStatus(Request $request, $id)
+    {
+        // dd($request->all(),$id);
+        $supplier = Supplier::findOrFail($id);
+        
+        $supplier->status = $request->status;
+        $supplier->save();
+        session()->flash('success', 'Supplier Status Updated');
+        return back();
+    }
+
+
 }

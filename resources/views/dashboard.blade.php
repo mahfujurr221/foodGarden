@@ -2,7 +2,7 @@
 @section('title', 'Dashboard')
 {{-- this query is for brand wise sales report --}}
 @php
-$brands = \App\Supplier::whereIn('id', json_decode(auth()->user()->brand_id))->get();
+$brands = \App\Supplier::where('status', 1)->whereIn('id', json_decode(auth()->user()->brand_id))->get();
 
 $return_products = \App\PosItem::join('products', 'products.id', '=', 'pos_items.product_id')
 ->where('pos_items.created_at', '>=', date('Y-m-d') . ' 00:00:00')
@@ -123,9 +123,9 @@ $products = \App\EstimateItem::join('products', 'products.id', '=', 'estimate_it
         <table class="table table-bordered table-striped table-hover table-responsive-sm">
             @php
             if(auth()->user()->hasRole('admin')){
-            $brands = \App\Supplier::get();
+            $brands = \App\Supplier::where('status', 1)->get();
             }else{
-            $brands = \App\Supplier::whereIn('id', json_decode(auth()->user()->brand_id))->get();
+            $brands = \App\Supplier::where('status', 1)->whereIn('id', json_decode(auth()->user()->brand_id))->get();
             }
             $summary = new \App\Services\SummaryService();
             @endphp
@@ -421,7 +421,7 @@ $products = \App\EstimateItem::join('products', 'products.id', '=', 'estimate_it
                 <div class="form-group col-md-4 col-sm-4 col-4">
                     <select name="supplier_id" id="supplier_id" class="form-control form-control-sm">
                         <option value="">Select Supplier</option>
-                        @foreach (\App\Supplier::get() as $supplier)
+                        @foreach (\App\Supplier::where('status', 1)->get() as $supplier)
                         <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
                         @endforeach
                     </select>

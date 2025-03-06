@@ -105,7 +105,7 @@ class PaymentService
 
     public static function add_supplier_payment($request)
     {
-        $supplier           = Supplier::findOrFail($request->account_id);
+        $supplier           = Supplier::where('status', 1)->findOrFail($request->account_id);
         $requestAmount      = $request->amount;
 
         // Actual Payment insert

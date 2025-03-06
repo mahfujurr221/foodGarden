@@ -6,7 +6,7 @@ use App\Supplier;
 class SupplierService{
     public static function default_supplier()
     {
-        $exist=Supplier::where('default', 1)->first();
+        $exist=Supplier::where('status', 1)->where('default', 1)->first();
         if($exist){
             return $exist;
         }else{

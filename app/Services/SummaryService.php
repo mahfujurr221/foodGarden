@@ -141,11 +141,11 @@ class SummaryService
     public static function supplier_receivable($supplier_id = null)
     {
         if ($supplier_id) {
-            $totalReceivable = Supplier::where('id', $supplier_id)->sum('total_receivable');
-            $openingReceivable = Supplier::where('id', $supplier_id)->sum('opening_receivable');
+            $totalReceivable = Supplier::where('status', 1)->where('id', $supplier_id)->sum('total_receivable');
+            $openingReceivable = Supplier::where('status', 1)->where('id', $supplier_id)->sum('opening_receivable');
             return $totalReceivable + $openingReceivable;
         }
-        return Supplier::where('id', 1)->sum('total_receivable');
+        return Supplier::where('status', 1)->where('id', 1)->sum('total_receivable');
     }
 
     public static function total_receivable()
@@ -162,9 +162,9 @@ class SummaryService
     public static function supplier_payable($supplier_id = null)
     {
         if ($supplier_id) {
-            return Supplier::where('id', $supplier_id)->sum('total_payable');
+            return Supplier::where('status', 1)->where('id', $supplier_id)->sum('total_payable');
         }
-        return Supplier::sum('total_payable');
+        return Supplier::where('status', 1)->sum('total_payable');
     }
 
     public static function total_payable()

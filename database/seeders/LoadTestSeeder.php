@@ -34,7 +34,7 @@ class LoadTestSeeder extends Seeder
     public function make_purchase($number_of_purchase)
     {
         for ($i = 0; $i < $number_of_purchase; $i++) {
-            $supplier = Supplier::find(rand(1, 1000));
+            $supplier = Supplier::where('status', 1)->find(rand(1, 1000));
 
             $products = [];
             $number_of_products = rand(1, 10);
