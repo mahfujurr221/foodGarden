@@ -74,7 +74,7 @@
                             class="form-control {{ $errors->has('brand_id') ? 'is-invalid' : '' }} select2" multiple
                             required>
                             <option value="">Select Brand</option>
-                            @foreach (\App\Supplier::get() as $brand)
+                            @foreach (\App\Supplier::where('status', 1)->get() as $brand)
                             <option {{ $user->brand_id && in_array($brand->id, json_decode($user->brand_id)) ?
                                 'selected' : '' }}
                                 value="{{ $brand->id }}">{{ $brand->name }}</option>

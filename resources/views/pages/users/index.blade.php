@@ -8,7 +8,6 @@
                 <strong>Users</strong>
             </h1>
         </div>
-
         <div class="header-action">
             <nav class="nav">
                 <a class="nav-link active" href="{{ route('users.index') }}">
@@ -28,7 +27,6 @@
     <div class="col-12">
         <div class="card">
             <h4 class="card-title"><strong>Users</strong></h4>
-
             <div class="card-body card-body-soft">
                 @if ($users->count() > 0)
                     <div class="table-responsive-sm table-bordered">
