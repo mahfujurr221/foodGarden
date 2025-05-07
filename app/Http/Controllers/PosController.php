@@ -96,26 +96,52 @@ class PosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // public function create(Request $request)
+    // {
+    //     // dd("");
+    //     $customers = Customer::latest()->get();
+    //     $products = new Product();
+
+    //     if ($request->code != null) {
+    //         $products = $products->where('code', 'like', '%' . $request->code . '%');
+    //     }
+    //     if (auth()->user()->hasRole('admin')) {
+    //         $products = $products->where('brand_id',1)->orderBy('name')->get();
+    //     } else {
+    //         $brand_ids = json_decode(auth()->user()->brand_id ?? '[]', true);
+    //         // $products = $products->where('brand_id', auth()->user()->brand_id)->orderBy('name')->get();
+    //         $products = $products->where('brand_id', 1)->orderBy('name')->get();
+    //     }
+    //     // $delivery_methods = DeliveryMethod::all();
+    //     // dd($delivery_methods);
+
+    //     return view('pages.pos.create', compact('products', 'customers'));
+    // }
+
     public function create(Request $request)
     {
-        // dd("");
         $customers = Customer::latest()->get();
         $products = new Product();
 
         if ($request->code != null) {
             $products = $products->where('code', 'like', '%' . $request->code . '%');
         }
-        if (auth()->user()->hasRole('admin')) {
-            $products = $products->where('brand_id',1)->orderBy('name')->get();
+
+        $brand_ids = json_decode(auth()->user()->brand_id ?? '[]', true);
+        $activeBrandIds = Supplier::where('status', 1)
+            ->whereIn('id', is_array($brand_ids) ? $brand_ids : [])
+            ->pluck('id')
+            ->toArray();
+
+        if (count($activeBrandIds) > 0) {
+            $products = $products->where('brand_id', $activeBrandIds[0])->orderBy('name')->get();
         } else {
-            // $products = $products->where('brand_id', auth()->user()->brand_id)->orderBy('name')->get();
-            $products = $products->where('brand_id', 1)->orderBy('name')->get();
+            $products = collect();
         }
-        // $delivery_methods = DeliveryMethod::all();
-        // dd($delivery_methods);
-        
+
         return view('pages.pos.create', compact('products', 'customers'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -178,17 +204,17 @@ class PosController extends Controller
                     'method' => $request->payment_method,
                 ]);
             }
-            if(($request->receivable_amount-$request->pay_amount)!=0){
+            if (($request->receivable_amount - $request->pay_amount) != 0) {
                 $dueCollection = DueCollection::create([
                     'customer_id' => $request->customer,
-                    'pos_id'=>$pos->id,
+                    'pos_id' => $pos->id,
                     'due_by' => $saleBy,
-                    'direct_transection'=>0,
-                    'last_due_date' => $actual_payment->date??$request->sale_date,
+                    'direct_transection' => 0,
+                    'last_due_date' => $actual_payment->date ?? $request->sale_date,
                     'committed_due_date' => $request->committed_date,
-                    'amount'=>$request->receivable_amount,
-                    'paid'=>$request->pay_amount??0,
-                    'due'=>$request->receivable_amount-$request->pay_amount,
+                    'amount' => $request->receivable_amount,
+                    'paid' => $request->pay_amount ?? 0,
+                    'due' => $request->receivable_amount - $request->pay_amount,
                     'brand_id' => $request->brand_id,
                 ]);
             }
@@ -313,15 +339,15 @@ class PosController extends Controller
             DB::beginTransaction();
             $po->forceDelete();
             $po->payments()->forceDelete();
-            
+
             $order_damage_items = OrderDamageItem::where('estimate_id', $po->estimate_id)->get();
-            if($order_damage_items){
+            if ($order_damage_items) {
                 foreach ($order_damage_items as $order_damage_item) {
                     $order_damage_item->delete();
                 }
             }
             $order_return_items = OrderReturnItem::where('estimate_id', $po->estimate_id)->get();
-            if($order_return_items){
+            if ($order_return_items) {
                 foreach ($order_return_items as $order_return_item) {
                     $order_return_item->delete();
                 }
@@ -338,11 +364,11 @@ class PosController extends Controller
                 }
             }
 
-            $dueCollection=DueCollection::where('pos_id',$po->id)->first();
-            if($dueCollection){
+            $dueCollection = DueCollection::where('pos_id', $po->id)->first();
+            if ($dueCollection) {
                 $dueCollection->delete();
             }
-    
+
             DB::commit();
             session()->flash('success', 'Sale Deleted');
             return back();
@@ -350,7 +376,7 @@ class PosController extends Controller
             DB::rollback();
             session()->flash('warning', 'Oops! Something went wrong');
             return back();
-        }    
+        }
     }
 
     public function get_product()
@@ -372,21 +398,21 @@ class PosController extends Controller
     // }
 
     public function product_search_by_name()
-{
-    $query = request('req');
-    $brand_id = request('brand_id');
+    {
+        $query = request('req');
+        $brand_id = request('brand_id');
 
-    $products = Product::where(function ($q) use ($query) {
-        $q->where('name', 'like', "%$query%")
-          ->orWhere('code', 'like', "%$query%");
-    });
+        $products = Product::where(function ($q) use ($query) {
+            $q->where('name', 'like', "%$query%")
+                ->orWhere('code', 'like', "%$query%");
+        });
 
-    if ($brand_id) {
-        $products->where('brand_id', $brand_id);
+        if ($brand_id) {
+            $products->where('brand_id', $brand_id);
+        }
+
+        return response()->json($products->get());
     }
-
-    return response()->json($products->get());
-}
     public function product_search_by_code()
     {
         $query = request('req');
@@ -510,8 +536,8 @@ class PosController extends Controller
     {
         return view('pages.pos.purchase_cost_breakdown', compact('pos'));
     }
-    
-    
+
+
     public function deliveryBy(Request $request)
     {
         $query = Pos::query();
@@ -529,5 +555,4 @@ class PosController extends Controller
 
         return view('pages.pos.delivery_by', compact('sales'));
     }
-
 }

@@ -29,10 +29,10 @@
                             ->user()
                             ->hasRole('admin')
                             ) {
-                            $brands = \App\Supplier::where('status', 1)->orderBy('name', 'ASC')->get();
+                            $brands = \App\Supplier::where('status', 1)->orderBy('id', 'ASC')->get();
                             } else {
                             $brands = \App\Supplier::where('status', 1)->whereIn('id', json_decode(auth()->user()->brand_id))
-                            ->orderBy('name', 'ASC')
+                            ->orderBy('id', 'ASC')
                             ->get();
                             }
                             @endphp

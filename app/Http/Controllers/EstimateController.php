@@ -19,6 +19,7 @@ use App\OrderDamageItem;
 use App\OrderReturnItem;
 use App\PosSetting;
 use App\Role;
+use App\Supplier;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -81,11 +82,23 @@ class EstimateController extends Controller
         if ($request->code != null) {
             $products = $products->where('code', 'like', '%' . $request->code . '%');
         }
-        if (auth()->user()->hasRole('admin')) {
-            $products = $products->where('brand_id', 1)->orderBy('name')->get();
+        // if (auth()->user()->hasRole('admin')) {
+        //     $products = $products->where('brand_id', 1)->orderBy('name')->get();
+        // } else {
+        //     $products = $products->where('brand_id', $brands)->orderBy('name')->get();
+        // }
+        $brand_ids = json_decode(auth()->user()->brand_id ?? '[]', true);
+        $activeBrandIds = Supplier::where('status', 1)
+            ->whereIn('id', is_array($brand_ids) ? $brand_ids : [])
+            ->pluck('id')
+            ->toArray();
+
+        if (count($activeBrandIds) > 0) {
+            $products = $products->where('brand_id', $activeBrandIds[0])->orderBy('name')->get();
         } else {
-            $products = $products->where('brand_id', $brands)->orderBy('name')->get();
+            $products = collect();
         }
+
         return view('pages.estimate.create', compact('products', 'customers'));
     }
 
