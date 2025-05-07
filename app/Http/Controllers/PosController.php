@@ -363,14 +363,30 @@ class PosController extends Controller
         }
     }
 
+    // public function product_search_by_name()
+    // {
+    //     $query = request('req');
+    //     $brand_id = request('brand_id');
+    //     $products = Product::where('name', 'LIKE', "%$query%")->orWhere('code', 'LIKE', "%$query%")->get();
+    //     return response()->json($products);
+    // }
+
     public function product_search_by_name()
-    {
-        $query = request('req');
-        $brand_id = request('brand_id');
-        $products = Product::where('name', 'LIKE', "%$query%")->orWhere('code', 'LIKE', "%$query%")->get();
-        return response()->json($products);
+{
+    $query = request('req');
+    $brand_id = request('brand_id');
+
+    $products = Product::where(function ($q) use ($query) {
+        $q->where('name', 'like', "%$query%")
+          ->orWhere('code', 'like', "%$query%");
+    });
+
+    if ($brand_id) {
+        $products->where('brand_id', $brand_id);
     }
 
+    return response()->json($products->get());
+}
     public function product_search_by_code()
     {
         $query = request('req');

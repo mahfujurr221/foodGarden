@@ -42,10 +42,10 @@
                 <div class="card-body">
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="supplier">Supplier</label>
+                            <label for="supplier">Brand</label>
                             <select name="supplier_id" id="supplier" data-provide="selectpicker" data-live-search="true"
                                 class="form-control {{ $errors->has('supplier_id') ? 'is-invalid' : '' }}" data-size="10">
-                                <option value="">Select Supplier </option>
+                                <option value="">Select Brand </option>
                                 @foreach ($suppliers as $item)
                                     <option value="{{ $item->id }}" {{ $item->default == 1 ? 'disabled' : '' }}>
                                         {{ $item->name }} - {{ $item->phone }} </option>
@@ -73,6 +73,7 @@
                             <input type="text" id="product_search" class="form-control" placeholder="Write product."
                                 onkeup="return event.keyCode !== 13">
                         </div>
+                        
                         {{-- <div class="form-group col-md-6">
             <label for="">Carrying Cost</label>
             <input type="text" name="carrying_cost" value="{{ old("carrying_cost") }}" class="form-control"

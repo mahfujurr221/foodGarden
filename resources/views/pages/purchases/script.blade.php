@@ -7,9 +7,27 @@
 
         $("#product_search").autocomplete({
             source: function(req, res) {
+                
                 let url = "{{ route('product-search') }}";
+                let brand_id = $('#supplier').val();
+                if (!brand_id) {
+                    toastr.warning('Please select a supplier first.');
+                    return;
+                }
+                // $.get(url, {
+                //     req: req.term
+                // }, (data) => {
+                //     res($.map(data, function(item) {
+                //         return {
+                //             id: item.id,
+                //             value: item.name,
+                //             price: item.price
+                //         }
+                //     })); // end res
+                // });
                 $.get(url, {
-                    req: req.term
+                    req: req.term,
+                    brand_id: brand_id // pass supplier_id as brand_id
                 }, (data) => {
                     res($.map(data, function(item) {
                         return {
@@ -17,7 +35,7 @@
                             value: item.name,
                             price: item.price
                         }
-                    })); // end res
+                    }));
                 });
             },
             
