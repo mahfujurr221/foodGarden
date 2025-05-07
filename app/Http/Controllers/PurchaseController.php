@@ -55,7 +55,7 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        $suppliers = Supplier::where('status', 1)->all();
+        $suppliers = Supplier::where('status', 1)->get();
         $products = Product::orderBy('name')->get();
         return view('pages.purchases.create', compact('suppliers', 'products'));
     }
@@ -116,7 +116,7 @@ class PurchaseController extends Controller
         //     return back();
         // }
 
-        $suppliers = Supplier::where('status', 1)->all();
+        $suppliers = Supplier::where('status', 1)->get();
         return view('pages.purchases.edit', compact('purchase', 'suppliers'));
     }
 

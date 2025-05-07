@@ -25,7 +25,6 @@
 
 @section('content')
 <div class="col-12 mt-0">
-
     <div class="card print_area">
         <div class="card-body">
             <form action="{{ route('product.index') }}">
@@ -33,7 +32,6 @@
                     {{-- <div class="form-group col-md-3">
                         <input type="text" name="code" class="form-control" placeholder="Product Code" value="{{ request('code') }}">
                     </div> --}}
-    
                     <div class="form-group col-md-3">
                         <input type="text" class="form-control" name="name" placeholder="Product Name" value="{{ request('name') }}">
                     </div>
@@ -68,7 +66,6 @@
                         </div>
                     </div>
                 </div>
-                
             </form>
 
             @if ($products->count() > 0)

@@ -28,7 +28,7 @@
                                         <div class="form-group col-md-4 mt-3">
                                              <select name="brand" id="" class="form-control" data-provide="selectpicker"
                                                   data-live-search="true" data-size="10">
-                                                  @foreach (\App\Supplier::where('status', 1)->all() as $item)
+                                                  @foreach (\App\Supplier::where('status', 1)->get() as $item)
                                                   <option value="{{ $item->id }}" {{ isset($brand) && $brand==$item->id
                                                        ?
                                                        'SELECTED' :

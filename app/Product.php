@@ -187,15 +187,29 @@ class Product extends Model
             'sub_qty' => $sub_qty
         ];
     }
+    // public function readable_qty($quantity)
+    // {
+    //     $separated = $this->separate_main_sub_qty($quantity);
+    //     $readable_stock = "";
+    //     $readable_stock .= $separated['main_qty'] . " " . $this->main_unit->name;
+    //     if ($this->sub_unit) {
+    //         $readable_stock .= " " . $separated['sub_qty'] . " " . $this->sub_unit->name;
+    //     }
+    //     return $readable_stock;
+    // }
     public function readable_qty($quantity)
     {
         $separated = $this->separate_main_sub_qty($quantity);
         $readable_stock = "";
-        $readable_stock .= $separated['main_qty'] . " " . $this->main_unit->name;
+        if ($this->main_unit) {
+            $readable_stock .= $separated['main_qty'] . " " . $this->main_unit->name;
+        } else {
+            $readable_stock .= $separated['main_qty'];
+        }
         if ($this->sub_unit) {
             $readable_stock .= " " . $separated['sub_qty'] . " " . $this->sub_unit->name;
         }
-        return $readable_stock;
+        return trim($readable_stock);
     }
 
     // Convert all quantity to sub_unit quantity

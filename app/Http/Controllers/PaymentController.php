@@ -48,7 +48,7 @@ class PaymentController extends Controller
     public function supplierPayment(Request $request)
     {
         $payments       = ActualPayment::query();
-        $suppliers      = Supplier::where('status', 1)->all();
+        $suppliers      = Supplier::where('status', 1)->get();
 
         if ($request->supplier) {
             $payments = $payments->where('supplier_id', $request->supplier);
