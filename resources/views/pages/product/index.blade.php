@@ -25,11 +25,56 @@
 
 @section('content')
 <div class="col-12 mt-0">
+
     <div class="card print_area">
         <div class="card-body">
+            <form action="{{ route('product.index') }}">
+                <div class="form-row mb-2">
+                    {{-- <div class="form-group col-md-3">
+                        <input type="text" name="code" class="form-control" placeholder="Product Code" value="{{ request('code') }}">
+                    </div> --}}
+    
+                    <div class="form-group col-md-3">
+                        <input type="text" class="form-control" name="name" placeholder="Product Name" value="{{ request('name') }}">
+                    </div>
+    
+                    <div class="form-group col-md-3">
+                        <div class="form-group">
+                            <select name="category" id="" class="form-control">
+                            <option value="">Select Category</option>
+                            @foreach (\App\Category::all() as $item)
+                                <option value="{{ $item->id }}" {{ request("category")==$item->id?"SELECTED":"" }}>{{ $item->name }}</option>
+                            @endforeach
+                            </select>
+                        </div>
+                    </div>
+    
+                    <div class="form-group col-md-3">
+                      <select name="brand_id" id="" class="form-control">
+                          <option value="">Select Brand</option>
+                        @foreach ($brands as $item)
+                          <option value="{{ $item->id }}" {{ request("brand_id")==$item->id?"SELECTED":"" }}>{{ $item->name }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    
+                    <div class="form-row col-md-3">
+                        <div class="form-group float-right">
+                            <button class="btn btn-primary" type="submit">
+                                    <i class="fa fa-sliders"></i>
+                                    Filter
+                            </button>
+                            <a href="{{ route('product.index') }}" class="btn btn-info">Reset</a>
+                        </div>
+                    </div>
+                </div>
+                
+            </form>
+
             @if ($products->count() > 0)
             <div class="">
-                <table class="table table-responsive table-bordered" data-provide="datatables" data-page-length="20">
+                {{-- <table class="table table-responsive table-bordered" data-provide="datatables" data-page-length="20"> --}}
+                <table class="table table-responsive table-bordered">
                     <thead>
                         <tr class="bg-primary">
                             <th class="text-center">#</th>
@@ -142,7 +187,7 @@
                     </tbody>
                 </table>
 
-                {{-- {!! $products->appends(Request::except('_token'))->links() !!} --}}
+                {!! $products->appends(Request::except('_token'))->links() !!}
 
             </div>
             @else

@@ -1,11 +1,13 @@
 <?php
-
-use App\Pos;
-use App\Product;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
+use Illuminate\Support\Carbon;
+use Illuminate\Http\Request;
+use App\Models\DueCollection;
+use App\Services\PaymentService;
+use App\Models\Customer;
 
 
 
@@ -344,3 +346,335 @@ Route::get('/back', 'HomeController@index')->name('admin');
 Route::get('clear', 'MaintenanceController@cache_clear');
 Route::get('db_reset', 'MaintenanceController@reset_software');
 Route::get('optimize', 'MaintenanceController@optimize');
+
+
+Route::get('openingDue', function () {
+
+    $customers=array (
+        0 => 
+        array (
+          'id' => 7,
+          'total_due' => 500.3999999999796,
+        ),
+        33 => 
+        array (
+          'id' => 45,
+          'total_due' => 280.0,
+        ),
+        125 => 
+        array (
+          'id' => 141,
+          'total_due' => 500.0,
+        ),
+        129 => 
+        array (
+          'id' => 146,
+          'total_due' => 1290.0,
+        ),
+        146 => 
+        array (
+          'id' => 166,
+          'total_due' => 660.0,
+        ),
+        147 => 
+        array (
+          'id' => 167,
+          'total_due' => 3029.0,
+        ),
+        148 => 
+        array (
+          'id' => 168,
+          'total_due' => 12258.0,
+        ),
+        149 => 
+        array (
+          'id' => 169,
+          'total_due' => 300.0,
+        ),
+        158 => 
+        array (
+          'id' => 178,
+          'total_due' => 810.0,
+        ),
+        159 => 
+        array (
+          'id' => 179,
+          'total_due' => 2304.0,
+        ),
+        160 => 
+        array (
+          'id' => 180,
+          'total_due' => 1200.0,
+        ),
+        163 => 
+        array (
+          'id' => 183,
+          'total_due' => 2420.0,
+        ),
+        168 => 
+        array (
+          'id' => 189,
+          'total_due' => 4170.0,
+        ),
+        179 => 
+        array (
+          'id' => 200,
+          'total_due' => 846.0,
+        ),
+        180 => 
+        array (
+          'id' => 201,
+          'total_due' => 2510.0,
+        ),
+        182 => 
+        array (
+          'id' => 203,
+          'total_due' => 7425.0,
+        ),
+        185 => 
+        array (
+          'id' => 206,
+          'total_due' => 1390.0,
+        ),
+        250 => 
+        array (
+          'id' => 284,
+          'total_due' => 340.0,
+        ),
+        276 => 
+        array (
+          'id' => 310,
+          'total_due' => 8160.0,
+        ),
+        285 => 
+        array (
+          'id' => 319,
+          'total_due' => 5790.0,
+        ),
+        286 => 
+        array (
+          'id' => 320,
+          'total_due' => 800.0,
+        ),
+        299 => 
+        array (
+          'id' => 334,
+          'total_due' => 660.0,
+        ),
+        312 => 
+        array (
+          'id' => 347,
+          'total_due' => 324.0,
+        ),
+        320 => 
+        array (
+          'id' => 355,
+          'total_due' => 410.0,
+        ),
+        325 => 
+        array (
+          'id' => 361,
+          'total_due' => 2050.0,
+        ),
+        340 => 
+        array (
+          'id' => 377,
+          'total_due' => 1135.0,
+        ),
+        341 => 
+        array (
+          'id' => 378,
+          'total_due' => 460.0,
+        ),
+        342 => 
+        array (
+          'id' => 379,
+          'total_due' => 4280.0,
+        ),
+        353 => 
+        array (
+          'id' => 390,
+          'total_due' => 1290.0,
+        ),
+        365 => 
+        array (
+          'id' => 402,
+          'total_due' => 15.0,
+        ),
+        368 => 
+        array (
+          'id' => 405,
+          'total_due' => 1236.0,
+        ),
+        379 => 
+        array (
+          'id' => 416,
+          'total_due' => 8551.5,
+        ),
+        406 => 
+        array (
+          'id' => 443,
+          'total_due' => 330.0,
+        ),
+        409 => 
+        array (
+          'id' => 446,
+          'total_due' => 4175.0,
+        ),
+        416 => 
+        array (
+          'id' => 453,
+          'total_due' => 260.0,
+        ),
+        428 => 
+        array (
+          'id' => 465,
+          'total_due' => 1803.0,
+        ),
+        436 => 
+        array (
+          'id' => 473,
+          'total_due' => 660.0,
+        ),
+        465 => 
+        array (
+          'id' => 502,
+          'total_due' => 1000.0,
+        ),
+        509 => 
+        array (
+          'id' => 546,
+          'total_due' => 4855.0,
+        ),
+        520 => 
+        array (
+          'id' => 557,
+          'total_due' => 2350.0,
+        ),
+        527 => 
+        array (
+          'id' => 564,
+          'total_due' => 2700.0,
+        ),
+        535 => 
+        array (
+          'id' => 572,
+          'total_due' => 3399.0,
+        ),
+        537 => 
+        array (
+          'id' => 574,
+          'total_due' => 2755.0,
+        ),
+        541 => 
+        array (
+          'id' => 578,
+          'total_due' => 1460.0,
+        ),
+        552 => 
+        array (
+          'id' => 589,
+          'total_due' => 21788.0,
+        ),
+        553 => 
+        array (
+          'id' => 590,
+          'total_due' => 7449.0,
+        ),
+        554 => 
+        array (
+          'id' => 591,
+          'total_due' => 13801.0,
+        ),
+        560 => 
+        array (
+          'id' => 597,
+          'total_due' => 73.0,
+        ),
+        565 => 
+        array (
+          'id' => 602,
+          'total_due' => 490.0,
+        ),
+        566 => 
+        array (
+          'id' => 603,
+          'total_due' => 1265.0,
+        ),
+        569 => 
+        array (
+          'id' => 606,
+          'total_due' => 10.0,
+        ),
+        570 => 
+        array (
+          'id' => 607,
+          'total_due' => 495.0,
+        ),
+        571 => 
+        array (
+          'id' => 608,
+          'total_due' => 1290.0,
+        ),
+        572 => 
+        array (
+          'id' => 609,
+          'total_due' => 130.0,
+        ),
+        573 => 
+        array (
+          'id' => 610,
+          'total_due' => 1785.0,
+        ),
+        575 => 
+        array (
+          'id' => 612,
+          'total_due' => 23420.0,
+        ),
+        577 => 
+        array (
+          'id' => 614,
+          'total_due' => 580.0,
+        ),
+        578 => 
+        array (
+          'id' => 615,
+          'total_due' => 650.0,
+        ),
+        579 => 
+        array (
+          'id' => 616,
+          'total_due' => 200.0,
+        ),
+    );
+      
+    foreach ($customers as $data) {
+        DB::beginTransaction();
+        try {
+            $request = new Request();
+            $request->replace([
+                'payment_date'        => Carbon::now()->format('Y-m-d'),
+                'payment_type'        => 'pay',
+                'account_type'        => 'customer',
+                'account_id'          => $data['id'],
+                'amount'              => $data['total_due'],
+                'committed_date'      => Carbon::now()->addDays(7)->format('Y-m-d'),
+                'due_by'              => 1, 
+                'direct_transection'  => 1,
+                'bank_account_id'     => null,
+                'note'                => 'Opening Due Entry',
+                'brand'               => null,
+            ]);
+
+            $actual_payment = PaymentService::add_customer_payment($request);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            echo "❌ Error for Customer ID {$data['id']}: " . $e->getMessage() . "<br>";
+        }
+    }
+
+    echo "✅ Opening dues created for all listed customers.";
+
+});

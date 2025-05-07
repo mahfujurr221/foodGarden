@@ -68,11 +68,10 @@ class ProductController extends Controller
 
         }
 
-
         $products = $products->
             // orderBy('name')
             orderBy('id', 'DESC')
-            ->get();
+            ->paginate(100);
         $customers = Customer::orderBy('name')->get();
         $brands = Supplier::where('status', 1)->select('id', 'name')->get();
 
